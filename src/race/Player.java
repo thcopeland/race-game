@@ -1,7 +1,9 @@
 package race;
 
 import javafx.scene.canvas.GraphicsContext;
-import race.level.*;
+import race.level.GameLocation;
+import race.level.Level;
+import race.level.Terrain;
 
 public class Player {
 	private static final double acceleration = 0.1;
@@ -30,15 +32,15 @@ public class Player {
 	public Player(int x, int y, Sprite s) {
 		this.x = x;
 		this.y = y;
-		this.z = 0;
-		this.vx = 0;
-		this.vy = 0;
-		this.vz = 0;
-		this.sprite = s;
-		this.facing = Direction.DOWN;
-		this.score = 0;
+		z = 0;
+		vx = 0;
+		vy = 0;
+		vz = 0;
+		sprite = s;
+		facing = Direction.DOWN;
+		score = 0;
 
-		this.animations = new AnimationQueue();
+		animations = new AnimationQueue();
 	}
 
 	public double getX() { return x; }
@@ -54,23 +56,23 @@ public class Player {
 	public void setY(double y) { this.y = y; }
 	public void setVx(double vx) { this.vx = vx; }
 	public void setVy(double vy) { this.vy = vy; }
-	public void score() { this.score += 1; }
+	public void score() { score += 1; }
 
 	public void move(Direction dir) {
 		if (animations.isEmpty()) {
-			this.facing = dir;
+			facing = dir;
 
 			double acceleration = onGround() ? Player.acceleration : Player.acceleration/4;
-			if (dir == Direction.UP)         this.vy -= acceleration;
-			else if (dir == Direction.DOWN)  this.vy += acceleration;
-			else if (dir == Direction.LEFT)  this.vx -= acceleration;
-			else if (dir == Direction.RIGHT) this.vx += acceleration;
+			if (dir == Direction.UP)         vy -= acceleration;
+			else if (dir == Direction.DOWN)  vy += acceleration;
+			else if (dir == Direction.LEFT)  vx -= acceleration;
+			else if (dir == Direction.RIGHT) vx += acceleration;
 		}
 	}
 
 	public void jump() {
-		if (this.animations.isEmpty() && onGround()) {
-			this.vz = 2;
+		if (animations.isEmpty() && onGround()) {
+			vz = 2;
 		}
 	}
 
@@ -86,35 +88,35 @@ public class Player {
 					animations.add(new BurningAnimation(this));
 				}
 
-				this.vx *= terrain.getFriction();
-				this.vy *= terrain.getFriction();
+				vx *= terrain.getFriction();
+				vy *= terrain.getFriction();
 			}
 
 			if (getSpeed() > terrain.getSpeed()) {
 				double factor = getSpeed() / terrain.getSpeed();
 
-				this.vx /= Math.sqrt(factor);
-				this.vy /= Math.sqrt(factor);
+				vx /= Math.sqrt(factor);
+				vy /= Math.sqrt(factor);
 			}
 
-			this.x += vx;
-			this.y += vy;
-			this.z += vz;
+			x += vx;
+			y += vy;
+			z += vz;
 
-			if (this.x < 0 || this.x > level.getWidth()) {
-				this.x -= vx;
-				this.vx *= -1;
+			if (x < 0 || x > level.getWidth()) {
+				x -= vx;
+				vx *= -1;
 			}
-			if (this.y < 0 || this.y > level.getHeight()) {
-				this.y -= vy;
-				this.vy *= -1;
+			if (y < 0 || y > level.getHeight()) {
+				y -= vy;
+				vy *= -1;
 			}
 
-			this.vz -= 0.02;
+			vz -= 0.02;
 
 			handleGroundCollision();
 
-			this.sprite.tick();
+			sprite.tick();
 		} else {
 			animations.update();
 		}
@@ -129,38 +131,34 @@ public class Player {
 	}
 
 	public void respawn(GameLocation s) {
-		this.spawnPoint = s;
-		this.vx = this.vy = 0;
-		this.facing = Direction.DOWN;
-		this.animations.add(new SpawnAnimation(s, this));
-	}
-
-	public void explode(Obstacle source) {
-		this.animations.add(new ExplosionAnimation(this, source.getX(), source.getY()));
+		spawnPoint = s;
+		vx = vy = 0;
+		facing = Direction.DOWN;
+		animations.add(new SpawnAnimation(s, this));
 	}
 
 	public double getSpeed() {
-		return Math.hypot(this.vx, this.vy);
+		return Math.hypot(vx, vy);
 	}
 
 	public boolean onGround() {
-		return Math.abs(this.z - this.terrain.getDepth()) < 1;
+		return Math.abs(z - terrain.getDepth()) < 1;
 	}
 
 	public boolean onHole(Level level) {
-		return this.terrain == Terrain.HOLE && level.getTerrainAt(x-vx, y-vy) == Terrain.HOLE;
+		return terrain == Terrain.HOLE && level.getTerrainAt(x-vx, y-vy) == Terrain.HOLE;
 	}
 
 	public void handleGroundCollision() {
-		if (this.z < this.terrain.getDepth()) {
-			this.vz = 0;
-			this.z = this.terrain.getDepth();
+		if (z < terrain.getDepth()) {
+			vz = 0;
+			z = terrain.getDepth();
 		}
 	}
 
 	public int getAnimationIndex() {
 		if (getSpeed() < 0.1)
-			return this.facing.ordinal();
-		return this.facing.ordinal() + 4;
+			return facing.ordinal();
+		return facing.ordinal() + 4;
 	}
 }

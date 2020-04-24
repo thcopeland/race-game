@@ -6,7 +6,7 @@ public final class Assets {
 	/**
 	 * Map tile image source
 	 */
-	public static final Image TILESHEET = new Image("assets/images/tiles.png");
+    	public static final Image TILESHEET = new Image("assets/images/tiles.png");
 
 	/**
 	 * Obstacle image source

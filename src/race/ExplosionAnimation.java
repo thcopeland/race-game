@@ -1,17 +1,15 @@
 package race;
 
 import javafx.scene.canvas.GraphicsContext;
+import race.level.Mine;
 
 public class ExplosionAnimation extends Animation {
 
-	private Player player;
-	private double sourceX, sourceY;
+	private Mine source;
 	private long clock;
 
-	public ExplosionAnimation(Player player, double x, double y) {
-		this.player = player;
-		sourceX = x;
-		sourceY = y;
+	public ExplosionAnimation(Mine source) {
+		this.source = source;
 		clock = 0;
 	}
 
@@ -21,14 +19,9 @@ public class ExplosionAnimation extends Animation {
 	}
 
 	@Override
-	public void onCompletion() {
-		player.respawn(player.getSpawnPoint());
-	}
-
-	@Override
 	public void render(GraphicsContext ctx) {
 		long frame = clock / 5;
-		ctx.drawImage(Assets.EFFECTS, 100 * frame, 0, 100, 100, sourceX - 50, sourceY - 100, 100, 100);
+		ctx.drawImage(Assets.EFFECTS, 100 * frame, 0, 100, 100, source.getX() - 50, source.getY() - 100, 100, 100);
 	}
 
 	@Override
