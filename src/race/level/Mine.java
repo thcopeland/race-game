@@ -13,37 +13,46 @@ public class Mine extends Obstacle {
 
 	public Mine(int x, int y) {
 		super(x, y);
-		this.expended = false;
-		this.transparency = 1.0;
+		expended = false;
+		transparency = 0.0;
 	}
 
 	@Override
 	public void render(GraphicsContext ctx) {
-		if (!this.expended) {
+		if (!expended) {
 			ctx.setGlobalAlpha(transparency);
-			ctx.drawImage(Assets.OBSTACLES, 192, 192, 32, 64, getX()+offsetX, getY()+offsetY, 32, 64);
+			ctx.drawImage(Assets.OBSTACLES, 192, 192, 32, 64, getX() + offsetX, getY() + offsetY, 32, 64);
 			ctx.setGlobalAlpha(1.0);
 		}
 	}
 
 	@Override
-	public void update(Player ...players) {
-		if (!this.expended) {
+	public void update(Player... players) {
+		if (!expended) {
 			double proximity = -1;
 
 			for (Player p : players) {
-				double dist2 = Math.pow(p.getX()-x, 2) + Math.pow(p.getY()-y, 2);
+				double dist2 = Math.pow(p.getX() - x, 2) + Math.pow(p.getY() - y, 2);
 
 				if (dist2 < 180 && p.getZ() < 10) {
 					p.explode(this);
-					this.expended = true;
+					expended = true;
 				}
 
-				if (proximity < 0 || dist2 < proximity) proximity = dist2;
+				if (proximity < 0 || dist2 < proximity)
+					proximity = dist2;
 			}
 
-			this.transparency = 256/proximity;
+			transparency = calculateTransparency(proximity);
 		}
+	}
+
+	private double calculateTransparency(double d) {
+		if (d < 600)
+			return 1.0;
+		if (d < 3600)
+			return 1 - (d - 600) / 3000;
+		return 0;
 	}
 
 }
