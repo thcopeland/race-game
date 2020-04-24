@@ -1,0 +1,29 @@
+<project name="Race" default="compile" basedir=".">
+	<property environment="env"/>
+	<property name="src" location="src"/>
+	<property name="module" location="${env.JAVAFX_HOME}/lib"/>
+	<property name="build" location="bin"/>
+
+	<target name="compile">
+		<mkdir dir="${build}"/>
+		<javac includeantruntime="true" srcdir="${src}" destdir="${build}" modulepath="${module}">
+			<compilerarg line="--add-modules javafx.controls"/>
+		</javac>
+	</target>
+
+	<target name="mapmaker" depends="compile">
+		<java classpath="${build}:${src}" modulepath="${module}" classname="mapmaker.MapMakerApplication" fork="true" >
+			<jvmarg line="--add-modules javafx.controls"/>
+		</java>
+	</target>
+
+	<target name="game" depends="compile">
+		<java classpath="${build}:${src}" modulepath="${module}" classname="ui.StartupApplication" fork="true" >
+			<jvmarg line="--add-modules javafx.controls"/>
+		</java>
+	</target>
+
+	<target name="clean">
+		<delete dir="${build}"/>
+	</target>
+</project>

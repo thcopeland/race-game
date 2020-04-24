@@ -1,0 +1,10 @@
+.palette-cell-selected {
+    -fx-background-color: black;
+    -fx-border-color: black;
+    -fx-border-width: 1px;
+    -fx-border-insets: -1px;
+}
+
+.palette-cell {
+    -fx-padding: 1px;
+}

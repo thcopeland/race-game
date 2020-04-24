@@ -1,0 +1,69 @@
+# Asset Credits
+
+## Tiles
+Tiles from assets/tiles.png were found at
+https://opengameart.org/content/liberated-pixel-cup-lpc-base-assets-sprites-map-tiles
+and licensed under CC-BY-SA 3.0 (https://creativecommons.org/licenses/by-sa/3.0).
+
+
+### Lanea Zimmerman (AKA Sharm)
+ - barrel.png
+ - brackish.png
+ - buckets.png
+ - cup.png
+ - dirt2.png
+ - dirt.png
+ - dungeon.png
+ - grassalt.png
+ - grass.png
+ - holek.png
+ - holemid.png
+ - hole.png
+ - lava.png
+ - lavarock.png
+ - rock.png
+ - treetop.png
+ - trunk.png
+ - watergrass.png
+ - water.png
+
+## Sprites
+Sprites from assets/sprites.png were found at
+https://opengameart.org/content/dwarves-0 and licensed under CC-BY 4.0
+(https://creativecommons.org/licenses/by/4.0/).
+
+
+### Artists:
+Created by Svetlana Kushnariova (Cabbit) <lana-chan@yandex.ru>, diamonddmgirl,
+GrumpyDiamond, & Jordan Irwin (AntumDeluge)
+
+
+### AntumDeluge
+ - dwarf bases
+
+### Cabbit
+ - 24x32 bases
+ - 24x32 characters
+ - 16x16 tiles
+
+### diamonddgirl
+ - 24x32 Black Characters Pack
+
+### GrumpyDiamond
+ - Pixel Weapons1
+
+## Effects (effects.png)
+Fire was found at https://opengameart.org/content/animated-fire and licensed
+under CC0 (https://creativecommons.org/publicdomain/zero/1.0/). Explosion was 
+found at https://opengameart.org/content/explosion-7 and licensed under CC0 as
+well.
+
+
+## Buttons (ui-btn-*.png)
+Base images found at https://opengameart.org/content/buttons-variations and
+licensed under CC0. Modified.
+
+
+## Parchment (parchment.jpg)
+Found at https://www.piqsels.com/en/public-domain-photo-sbtib, licensed under
+CC0.
