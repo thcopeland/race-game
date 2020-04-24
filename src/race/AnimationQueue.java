@@ -5,32 +5,31 @@ import java.util.ArrayDeque;
 import javafx.scene.canvas.GraphicsContext;
 
 public class AnimationQueue {
+    private ArrayDeque<Animation> animations;
 
-	private ArrayDeque<Animation> animations;
+    public AnimationQueue() {
+	animations = new ArrayDeque<Animation>();
+    }
 
-	public AnimationQueue() {
-		this.animations = new ArrayDeque<Animation>();
-	}
+    public void update() {
+	current().update();
 
-	public void update() {
-		current().update();
+	if (current().isDone()) animations.pop().onCompletion();
+    }
 
-		if (current().isDone()) animations.pop().onCompletion();
-	}
+    public void render(GraphicsContext ctx) {
+	current().render(ctx);
+    }
 
-	public void render(GraphicsContext ctx) {
-		current().render(ctx);
-	}
+    public boolean isEmpty() {
+	return animations.isEmpty();
+    }
 
-	public boolean isEmpty() {
-		return animations.isEmpty();
-	}
+    public void add(Animation a) {
+	animations.add(a);
+    }
 
-	public void add(Animation a) {
-		animations.add(a);
-	}
-
-	public Animation current() {
-		return animations.getLast();
-	}
+    public Animation current() {
+	return animations.getLast();
+    }
 }
