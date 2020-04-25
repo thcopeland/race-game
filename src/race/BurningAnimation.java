@@ -38,7 +38,7 @@ public class BurningAnimation extends Animation {
 	long frame = clock / 3 % 60;
 
 	int depth = (int) z;
-	ctx.drawImage(Assets.EFFECTS, 64*frame, 100, 64, 64-depth, x-32, y-64+depth, 64, 64-depth);
+	ctx.drawImage(Assets.EFFECTS, 64*frame, 100, 64, 64-depth, (int) (x-32), (int) (y-64+depth), 64, 64-depth);
     }
 
     @Override
