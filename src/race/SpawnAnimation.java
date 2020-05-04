@@ -9,24 +9,24 @@ public class SpawnAnimation extends Animation {
     private long clock;
 
     public SpawnAnimation(GameLocation spawnPoint, Player player) {
-	this.spawnPoint = spawnPoint;
-	this.player = player;
-	clock = 2*spawnPoint.getY();
+        this.spawnPoint = spawnPoint;
+        this.player = player;
+        clock = 2 * spawnPoint.getY();
     }
 
     @Override
     public boolean isDone() {
-	return clock < 0;
+        return clock < 0;
     }
 
     @Override
     public void render(GraphicsContext ctx) {
-	player.getSprite().render(ctx, player.getX()-24 , player.getY()-60, 2);
+        player.getSprite().render(ctx, player.getX() - 24, player.getY() - 60, 2);
     }
 
     @Override
     public void update() {
-	player.setX(spawnPoint.getX());
-	player.setY(spawnPoint.getY() - clock--);
+        player.setX(spawnPoint.getX());
+        player.setY(spawnPoint.getY() - clock--);
     }
 }

@@ -8,11 +8,11 @@ public class BigMaple extends Obstacle {
     public static final int offsetY = -120;
 
     public BigMaple(int x, int y) {
-	super(x, y);
+        super(x, y);
     }
 
     @Override
     public void render(GraphicsContext ctx) {
-	ctx.drawImage(Assets.OBSTACLES, 0, 0, 96, 137, getX()+offsetX, getY()+offsetY, 96, 137);
+        ctx.drawImage(Assets.OBSTACLES, 0, 0, 96, 137, getX() + offsetX, getY() + offsetY, 96, 137);
     }
 }

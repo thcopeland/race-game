@@ -23,70 +23,70 @@ public class SpriteSelectionScreen {
     private Sprite player1, player2;
 
     public SpriteSelectionScreen(Stage stage) {
-	this.stage = stage;
+        this.stage = stage;
     }
 
     public void activate() {
-	stage.getScene().setRoot(buildScene());
+        stage.getScene().setRoot(buildScene());
     }
 
     public Parent buildScene() {
-	GridPane mainPane = new GridPane();
-	mainPane.setVgap(130);
+        GridPane mainPane = new GridPane();
+        mainPane.setVgap(130);
 
-	GridPane spritePane = new GridPane();
+        GridPane spritePane = new GridPane();
 
-	Text status = new Text("Player One");
-	status.setFill(Color.GOLD);
-	status.setFont(Font.font("", FontWeight.BOLD, 35));
+        Text status = new Text("Player One");
+        status.setFill(Color.GOLD);
+        status.setFont(Font.font("", FontWeight.BOLD, 35));
 
-	UIButton continueButton = new UIButton("Continue", "green");
-	continueButton.setDisable(true);
+        UIButton continueButton = new UIButton("Continue", "green");
+        continueButton.setDisable(true);
 
-	Sprite[] sprites = PlayerSprites.sprites();
-	int width = (int) stage.getScene().getWidth() / sprites.length,
-		height = PlayerSprites.HEIGHT * width / PlayerSprites.WIDTH;
+        Sprite[] sprites = PlayerSprites.sprites();
+        int width = (int) stage.getScene().getWidth() / sprites.length,
+                height = PlayerSprites.HEIGHT * width / PlayerSprites.WIDTH;
 
-	for (int i = 0; i < sprites.length; i++) {
-	    int spriteIndex = i;
-	    Sprite sprite = sprites[i];
-	    Canvas display = new Canvas(width, height);
-	    GraphicsContext ctx = display.getGraphicsContext2D();
-	    ctx.setImageSmoothing(false);
-	    sprite.render(ctx, 0, 0, width, height, 2);
+        for (int i = 0; i < sprites.length; i++) {
+            int spriteIndex = i;
+            Sprite sprite = sprites[i];
+            Canvas display = new Canvas(width, height);
+            GraphicsContext ctx = display.getGraphicsContext2D();
+            ctx.setImageSmoothing(false);
+            sprite.render(ctx, 0, 0, width, height, 2);
 
-	    display.setOnMouseClicked(e -> {
-		if (player1 == null) {
-		    player1 = PlayerSprites.sprites()[spriteIndex];
-		    display.getStyleClass().add("selected-glow");
-		    status.setText("Player Two");
-		} else if (player2 == null) {
-		    player2 = PlayerSprites.sprites()[spriteIndex];
-		    display.getStyleClass().add("selected-glow");
-		    continueButton.setDisable(false);
-		}
-	    });
+            display.setOnMouseClicked(e -> {
+                if (player1 == null) {
+                    player1 = PlayerSprites.sprites()[spriteIndex];
+                    display.getStyleClass().add("selected-glow");
+                    status.setText("Player Two");
+                } else if (player2 == null) {
+                    player2 = PlayerSprites.sprites()[spriteIndex];
+                    display.getStyleClass().add("selected-glow");
+                    continueButton.setDisable(false);
+                }
+            });
 
-	    spritePane.add(display, i, 1);
-	}
+            spritePane.add(display, i, 1);
+        }
 
-	continueButton.setOnMouseClicked(e -> {
-	    try {
-		new GameApplication(stage, player1, player2).activate();
-	    } catch (IOException | ParseException e1) {
-		stage.close();
-		e1.printStackTrace();
-	    }
-	});
+        continueButton.setOnMouseClicked(e -> {
+            try {
+                new GameApplication(stage, player1, player2).activate();
+            } catch (IOException | ParseException e1) {
+                stage.close();
+                e1.printStackTrace();
+            }
+        });
 
-	HBox statusContainer = new HBox(status);
-	statusContainer.setAlignment(Pos.CENTER);
+        HBox statusContainer = new HBox(status);
+        statusContainer.setAlignment(Pos.CENTER);
 
-	mainPane.add(spritePane, 0, 0, 3, 1);
-	mainPane.add(statusContainer, 0, 1, 3, 1);
-	mainPane.add(continueButton, 3, 1);
+        mainPane.add(spritePane, 0, 0, 3, 1);
+        mainPane.add(statusContainer, 0, 1, 3, 1);
+        mainPane.add(continueButton, 3, 1);
 
-	mainPane.getStyleClass().add("ui-parchment-background");
-	return mainPane;
+        mainPane.getStyleClass().add("ui-parchment-background");
+        return mainPane;
     }
 }

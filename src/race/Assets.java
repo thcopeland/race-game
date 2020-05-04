@@ -21,8 +21,8 @@ public final class Assets {
     public static final Image EFFECTS = new Image("assets/images/effects.png");
 
     /**
-     * The directory in which to search for level information. Level files should
-     * be of the form 'level_#'; see {@link Game#loadLevel}
+     * The directory in which to search for level information. Level files should be
+     * of the form 'level_#'; see {@link Game#loadLevel}
      */
     public static final String LEVEL_DIR = "src/assets/levels";
 }

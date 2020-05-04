@@ -23,28 +23,28 @@ public class Sprite {
      *                   sprite can perform and the coordinates for each frame.
      */
     public Sprite(int width, int height, int offsetX, int offsetY, int[][][] animations) {
-	this.width = width;
-	this.height = height;
-	this.offsetX = offsetX;
-	this.offsetY = offsetY;
-	this.animations = animations;
-	clock = 0;
+        this.width = width;
+        this.height = height;
+        this.offsetX = offsetX;
+        this.offsetY = offsetY;
+        this.animations = animations;
+        clock = 0;
     }
 
     public int getWidth() {
-	return width;
+        return width;
     }
 
     public int getHeight() {
-	return height;
+        return height;
     }
 
     public int getOffsetX() {
-	return offsetX * width;
+        return offsetX * width;
     }
 
     public int getOffsetY() {
-	return offsetY * height;
+        return offsetY * height;
     }
 
     /**
@@ -52,11 +52,11 @@ public class Sprite {
      * advanced.
      */
     public void tick() {
-	clock++;
+        clock++;
     }
 
     public void useFrame(int i) {
-	clock = i * FRAME_DURATION;
+        clock = i * FRAME_DURATION;
     }
 
     /**
@@ -68,17 +68,16 @@ public class Sprite {
      * @param animation the index of the current animation sequence
      */
     public void render(GraphicsContext ctx, double x, double y, int animation) {
-	render(ctx, x, y, width, height, animation);
+        render(ctx, x, y, width, height, animation);
     }
 
     public void render(GraphicsContext ctx, double x, double y, int width, int height, int animation) {
-	// determine the coordinates of the appropriate animation frame
-	int frame = (int) (clock / FRAME_DURATION % animations[animation].length);
-	int[] animationCoords = animations[animation][frame];
+        // determine the coordinates of the appropriate animation frame
+        int frame = (int) (clock / FRAME_DURATION % animations[animation].length);
+        int[] animationCoords = animations[animation][frame];
 
-	ctx.drawImage(Assets.SPRITES, (offsetX + animationCoords[0]) * this.width,
-		(offsetY + animationCoords[1]) * this.height, this.width, this.height, (int) x, (int) y, width,
-		height);
+        ctx.drawImage(Assets.SPRITES, (offsetX + animationCoords[0]) * this.width,
+                (offsetY + animationCoords[1]) * this.height, this.width, this.height, (int) x, (int) y, width, height);
     }
 
 }

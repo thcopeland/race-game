@@ -12,13 +12,13 @@ import javafx.stage.Stage;
 public class StartupApplication extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-	stage.setTitle("The Great Race");
-	stage.setWidth(Screen.getPrimary().getVisualBounds().getWidth());
-	stage.setHeight(Screen.getPrimary().getVisualBounds().getHeight());
-	stage.setScene(new Scene(new Pane()));
-	stage.getScene().getStylesheets().add("assets/stylesheets/ui.css");
-	stage.show();
+        stage.setTitle("The Great Race");
+        stage.setWidth(Screen.getPrimary().getVisualBounds().getWidth());
+        stage.setHeight(Screen.getPrimary().getVisualBounds().getHeight());
+        stage.setScene(new Scene(new Pane()));
+        stage.getScene().getStylesheets().add("assets/stylesheets/ui.css");
+        stage.show();
 
-	new MainScreen(stage).activate();
+        new MainScreen(stage).activate();
     }
 }

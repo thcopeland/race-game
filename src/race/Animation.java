@@ -11,8 +11,10 @@ public abstract class Animation {
     /**
      * Called on completion of the animation
      */
-    public void onCompletion() {};
+    public void onCompletion() {
+    };
 
     public abstract void render(GraphicsContext ctx);
+
     public abstract void update();
 }

@@ -8,11 +8,11 @@ public class LittleMaple extends Obstacle {
     public static final int offsetY = -120;
 
     public LittleMaple(int x, int y) {
-	super(x, y);
+        super(x, y);
     }
 
     @Override
     public void render(GraphicsContext ctx) {
-	ctx.drawImage(Assets.OBSTACLES, 96, 0, 96, 137, getX()+offsetX, getY()+offsetY, 96, 137);
+        ctx.drawImage(Assets.OBSTACLES, 96, 0, 96, 137, getX() + offsetX, getY() + offsetY, 96, 137);
     }
 }
