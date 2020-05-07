@@ -81,12 +81,12 @@ public class SpriteSelectionScreen {
             }
         });
 
-        HBox statusContainer = new HBox(status);
-        statusContainer.setAlignment(Pos.CENTER);
+        HBox container = new HBox(status, continueButton);
+        container.setAlignment(Pos.CENTER);
+        container.setSpacing(400);
 
         mainPane.add(spritePane, 0, 0, 3, 1);
-        mainPane.add(statusContainer, 0, 1, 3, 1);
-        mainPane.add(continueButton, 3, 1);
+        mainPane.add(container, 0, 1, 3, 1);
 
         mainPane.getStyleClass().add("ui-parchment-background");
         return mainPane;
