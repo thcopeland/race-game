@@ -155,8 +155,8 @@ public class MapMaker {
         Text exportStatus = new Text(""), importStatus = new Text("");
 
         exportPath.setPrefWidth(300);
-        exportPath.setText("src/assets/levels/");
-        importPath.setText("src/assets/levels/");
+        exportPath.setText(Assets.LEVEL_DIR);
+        importPath.setText(Assets.LEVEL_DIR);
         importPath.setPrefWidth(300);
 
         exportButton.setOnAction(evt -> {

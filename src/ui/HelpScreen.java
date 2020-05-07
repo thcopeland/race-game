@@ -25,9 +25,14 @@ public class HelpScreen {
         pane.getStyleClass().add("ui-parchment-background");
 
         Text content = new Text("Player 1 can use the WASD keys to move around\n"
-                + "  and C to jump. In general, player 1 spawns\n" + "  on the left side of the screen.\n" + "\n"
-                + "Player 2 uses IJKL to move, and N to jump. He\n" + "  generally spawns on the right side of the\n"
-                + "  screen.\n" + "\n" + "May the best man win!");
+                              + " and C to jump. In general, player 1 spawns\n"
+                              + "  on the left side of the screen.\n"
+                              + "\n"
+                              + "Player 2 uses IJKL to move, and N to jump. He\n"
+                              + "  generally spawns on the right side of the\n"
+                              + "  screen.\n"
+                              + "\n"
+                              + "May the best man win!");
 
         content.getStyleClass().add("ui-large-text-blob");
         content.setFill(Color.BLACK);

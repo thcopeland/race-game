@@ -61,9 +61,6 @@ public class Game {
             player2.jump();
     }
 
-    /**
-     * Update the race state
-     */
     public void tick() {
         if (animations.isEmpty()) {
             player1.update(levels.getLevel());
@@ -78,9 +75,6 @@ public class Game {
         }
     }
 
-    /**
-     * Render the race
-     */
     public void render(Renderer renderer) {
         renderer.setRenderingScale(levels.getLevel());
 

@@ -19,6 +19,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import race.Assets;
 import race.level.Level;
 import race.level.Map;
 import race.level.MapTile;
@@ -61,7 +62,7 @@ public class MapMakerApplication extends Application {
 
         loadMapButton.setOnAction(evt -> {
             FileChooser chooser = new FileChooser();
-            chooser.setInitialDirectory(new File("src/assets/levels"));
+            chooser.setInitialDirectory(new File(Assets.LEVEL_DIR));
             File f = chooser.showOpenDialog(stage);
 
             if (f != null) {

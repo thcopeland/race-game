@@ -59,9 +59,6 @@ public class Level {
         this.goal = goal;
     }
 
-    /**
-     * @return the terrain type at the given coordinates
-     */
     public Terrain getTerrainAt(double x, double y) {
         return map.getTile((int) y, (int) x).getTerrain(x % 1, y % 1);
     }
@@ -73,18 +70,10 @@ public class Level {
         obstacles.sort((a, b) -> (int) (64 * (a.getY() - b.getY())));
     }
 
-    /**
-     * @return true if the level has enough data to be exported
-     */
     public boolean isExportable() {
         return map != null && obstacles != null && playerSpawn1 != null && playerSpawn2 != null && goal != null;
     }
 
-    /**
-     * Export the level data to a file
-     *
-     * @throws IOException
-     */
     public void export(String path) throws IOException {
         FileWriter f = new FileWriter(path);
 
@@ -122,12 +111,6 @@ public class Level {
         }
     }
 
-    /**
-     * Import level data from a file
-     *
-     * @throws IOException
-     * @throws ParseException
-     */
     public static Level load(String path) throws IOException, ParseException {
         Scanner s = new Scanner(new File(path));
 

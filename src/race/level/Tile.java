@@ -3,9 +3,6 @@ package race.level;
 import javafx.scene.image.Image;
 import race.Renderer;
 
-/**
- * A Tile contains information about a small portion of a tilesheet.
- */
 public class Tile {
     private int offsetX, offsetY, width, height;
 

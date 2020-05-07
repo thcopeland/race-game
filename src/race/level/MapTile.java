@@ -244,16 +244,10 @@ public enum MapTile implements Tiled {
                 OUT_S = { { 0 }, { 1 } }, OUT_SE = { { 0, 0, 1, 1 }, { 0, 1, 1, 1 }, { 1, 1, 1, 1 }, { 1, 1, 1, 1 } };
     }
 
-    /**
-     * Convert a Tile value into a String.
-     */
     public static String serialize(MapTile value) {
         return value.name();
     }
 
-    /**
-     * Convert a string to a Tile
-     */
     public static MapTile deserialize(String name) {
         return MapTile.valueOf(name);
     }
@@ -282,11 +276,6 @@ public enum MapTile implements Tiled {
         this.layout = layout;
     }
 
-    /**
-     * Given a relative x and a relative y coordinate (origin at the upper left),
-     * determines the type of terrain at that location. It is the caller's
-     * responsibility to ensure that the coordinates are within the tile bounds.
-     */
     public Terrain getTerrain(double x, double y) {
         return terrain[layout[(int) (y * layout.length)][(int) (x * layout[0].length)]];
     }

@@ -55,11 +55,7 @@ public class GameApplication {
         keys = new HashSet<KeyCode>(8);
     }
 
-    /**
-     * Create a canvas instance, grab the drawing context and add it to the window.
-     */
     public void activate() {
-        // render the race sceen
         VBox pane = new VBox(canvas);
         pane.setOnKeyPressed(e -> keys.add(e.getCode()));
         pane.setOnKeyReleased(e -> keys.remove(e.getCode()));
@@ -67,14 +63,9 @@ public class GameApplication {
         stage.getScene().setRoot(pane);
         pane.requestFocus();
 
-        // start the race timer (and the race)
         clock.start();
     }
 
-    /**
-     * this function is called around 60 times per second. it sends a tick to the
-     * race object and renders the race to the canvas.
-     */
     public void tick() {
         handleKeys();
         game.tick();
