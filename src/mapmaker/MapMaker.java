@@ -49,9 +49,6 @@ public class MapMaker {
     private Level level;
     private Renderer renderer;
 
-    /**
-     * Important UI elements
-     */
     private Canvas canvas;
     private ScrollPane canvasContainer;
     private Palette tilePalette;
@@ -71,7 +68,6 @@ public class MapMaker {
     public Scene buildScene(double width, double height) {
         TabPane toolbarPane = (TabPane) buildToolbar();
 
-        // create a canvas, drawing context, and renderer
         canvas = new Canvas(width, height);
         canvas.setCursor(Cursor.CROSSHAIR);
 
@@ -109,15 +105,11 @@ public class MapMaker {
                                              renderer.getScaleX(), renderer.getScaleY());
         });
 
-        // create and return the constructed scene
         Scene scene = new Scene(pane, width, height);
         scene.getStylesheets().add("assets/stylesheets/mapmaker.css");
         return scene;
     }
 
-    /**
-     * Construct a toolbar, consisting of a few tabs.
-     */
     public Node buildToolbar() {
         TabPane toolbar = new TabPane();
         toolbar.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
@@ -163,12 +155,10 @@ public class MapMaker {
         Text exportStatus = new Text(""), importStatus = new Text("");
 
         exportPath.setPrefWidth(300);
-        exportPath.setPromptText("assets/maps/");
-        importPath.setPromptText("assets/maps/");
+        exportPath.setText("src/assets/levels/");
+        importPath.setText("src/assets/levels/");
         importPath.setPrefWidth(300);
 
-        // attempt an export on click, and show a little message that describes
-        // failure/success
         exportButton.setOnAction(evt -> {
             if (level.isExportable()) {
                 try {
@@ -186,7 +176,6 @@ public class MapMaker {
             }
         });
 
-        // attempt an import on click, and show a failure or success message
         importButton.setOnAction(evt -> {
             try {
                 level = Level.load(importPath.getText());

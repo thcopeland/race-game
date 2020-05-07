@@ -61,6 +61,7 @@ public class MapMakerApplication extends Application {
 
         loadMapButton.setOnAction(evt -> {
             FileChooser chooser = new FileChooser();
+            chooser.setInitialDirectory(new File("src/assets/levels"));
             File f = chooser.showOpenDialog(stage);
 
             if (f != null) {
