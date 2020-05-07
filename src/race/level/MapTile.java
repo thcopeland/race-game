@@ -21,7 +21,8 @@ public enum MapTile implements Tiled {
     DIRT_OUT_SW(0, 4, TerrainLayout.OUT_SW, TerrainLayout.GRASS_DIRT),
     DIRT_OUT_S(1, 4, TerrainLayout.OUT_S, TerrainLayout.GRASS_DIRT),
     DIRT_OUT_SE(2, 4, TerrainLayout.OUT_SE, TerrainLayout.GRASS_DIRT),
-    DIRT_1(0, 5, TerrainLayout.FLAT, TerrainLayout.DIRT), DIRT_2(1, 5, TerrainLayout.FLAT, TerrainLayout.DIRT),
+    DIRT_1(0, 5, TerrainLayout.FLAT, TerrainLayout.DIRT),
+    DIRT_2(1, 5, TerrainLayout.FLAT, TerrainLayout.DIRT),
     DIRT_3(2, 5, TerrainLayout.FLAT, TerrainLayout.DIRT),
 
     GRASS_EXTRA_1(3, 0, TerrainLayout.FLAT, TerrainLayout.GRASS),
@@ -39,7 +40,8 @@ public enum MapTile implements Tiled {
     GRASS_OUT_SW(3, 4, TerrainLayout.OUT_SW, TerrainLayout.GRASS_DIRT),
     GRASS_OUT_S(4, 4, TerrainLayout.OUT_S, TerrainLayout.GRASS_DIRT),
     GRASS_OUT_SE(5, 4, TerrainLayout.OUT_SE, TerrainLayout.GRASS_DIRT),
-    GRASS_1(3, 5, TerrainLayout.FLAT, TerrainLayout.GRASS), GRASS_2(4, 5, TerrainLayout.FLAT, TerrainLayout.GRASS),
+    GRASS_1(3, 5, TerrainLayout.FLAT, TerrainLayout.GRASS),
+    GRASS_2(4, 5, TerrainLayout.FLAT, TerrainLayout.GRASS),
     GRASS_3(5, 5, TerrainLayout.FLAT, TerrainLayout.GRASS),
 
     WATER_EXTRA_1(6, 0, TerrainLayout.FLAT, TerrainLayout.WATER),
@@ -57,7 +59,8 @@ public enum MapTile implements Tiled {
     WATER_OUT_SW(6, 4, TerrainLayout.OUT_SW, TerrainLayout.WATER_GRASS),
     WATER_OUT_S(7, 4, TerrainLayout.OUT_S, TerrainLayout.WATER_GRASS),
     WATER_OUT_SE(8, 4, TerrainLayout.OUT_SE, TerrainLayout.WATER_GRASS),
-    WATER_1(6, 5, TerrainLayout.FLAT, TerrainLayout.WATER), WATER_2(7, 5, TerrainLayout.FLAT, TerrainLayout.WATER),
+    WATER_1(6, 5, TerrainLayout.FLAT, TerrainLayout.WATER),
+    WATER_2(7, 5, TerrainLayout.FLAT, TerrainLayout.WATER),
     WATER_3(8, 5, TerrainLayout.FLAT, TerrainLayout.WATER),
 
     BRACKISH_EXTRA_1(9, 0, TerrainLayout.FLAT, TerrainLayout.BRACKISH),
@@ -113,7 +116,8 @@ public enum MapTile implements Tiled {
     LAVA_OUT_SW(15, 4, TerrainLayout.OUT_SW, TerrainLayout.LAVA_ROCK),
     LAVA_OUT_S(16, 4, TerrainLayout.OUT_S, TerrainLayout.LAVA_ROCK),
     LAVA_OUT_SE(17, 4, TerrainLayout.OUT_SE, TerrainLayout.LAVA_ROCK),
-    LAVA_1(15, 5, TerrainLayout.FLAT, TerrainLayout.LAVA), LAVA_2(16, 5, TerrainLayout.FLAT, TerrainLayout.LAVA),
+    LAVA_1(15, 5, TerrainLayout.FLAT, TerrainLayout.LAVA),
+    LAVA_2(16, 5, TerrainLayout.FLAT, TerrainLayout.LAVA),
     LAVA_3(17, 5, TerrainLayout.FLAT, TerrainLayout.LAVA),
 
     ROCK_EXTRA_1(18, 0, TerrainLayout.FLAT, TerrainLayout.LAVA),
@@ -131,7 +135,8 @@ public enum MapTile implements Tiled {
     ROCK_OUT_SW(18, 4, TerrainLayout.OUT_SW, TerrainLayout.ROCK_LAVA),
     ROCK_OUT_S(19, 4, TerrainLayout.OUT_S, TerrainLayout.ROCK_LAVA),
     ROCK_OUT_SE(20, 4, TerrainLayout.OUT_SE, TerrainLayout.ROCK_LAVA),
-    ROCK_1(18, 5, TerrainLayout.FLAT, TerrainLayout.ROCK), ROCK_2(19, 5, TerrainLayout.FLAT, TerrainLayout.ROCK),
+    ROCK_1(18, 5, TerrainLayout.FLAT, TerrainLayout.ROCK),
+    ROCK_2(19, 5, TerrainLayout.FLAT, TerrainLayout.ROCK),
     ROCK_3(20, 5, TerrainLayout.FLAT, TerrainLayout.ROCK),
 
     DIRT_ROCK_EXTRA_1(21, 0, TerrainLayout.FLAT, TerrainLayout.DIRT),
@@ -264,7 +269,7 @@ public enum MapTile implements Tiled {
     /**
      * Create a new MapTile. There are over 200 types, so these are created
      * statically as Enums rather than subclasses.
-     * 
+     *
      * @param tile    A Tile that describes the image
      * @param layout  A matrix of indexes into terrain parameter describing the
      *                layout of the terrain.
@@ -282,8 +287,8 @@ public enum MapTile implements Tiled {
      * determines the type of terrain at that location. It is the caller's
      * responsibility to ensure that the coordinates are within the tile bounds.
      */
-    public Terrain getTerrain(int x, int y) {
-        return terrain[layout[y * layout.length / tile.getHeight()][x * layout[0].length / tile.getWidth()]];
+    public Terrain getTerrain(double x, double y) {
+        return terrain[layout[(int) (y * layout.length)][(int) (x * layout[0].length)]];
     }
 
     @Override

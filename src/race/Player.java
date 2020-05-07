@@ -1,12 +1,11 @@
 package race;
 
-import javafx.scene.canvas.GraphicsContext;
 import race.level.GameLocation;
 import race.level.Level;
 import race.level.Terrain;
 
 public class Player {
-    private static final double acceleration = 0.1;
+    private static final double acceleration = 0.01;
 
     /**
      * The various directions a player may go. The order of these directions is
@@ -117,7 +116,7 @@ public class Player {
 
     public void jump() {
         if (animations.isEmpty() && onGround()) {
-            vz = 2;
+            vz = 0.063;
         }
     }
 
@@ -137,26 +136,26 @@ public class Player {
             }
 
             if (getSpeed() > terrain.getSpeed()) {
-                double factor = getSpeed() / terrain.getSpeed();
+                double factor = Math.sqrt(getSpeed() / terrain.getSpeed());
 
-                vx /= Math.sqrt(factor);
-                vy /= Math.sqrt(factor);
+                vx /= factor;
+                vy /= factor;
             }
 
             x += vx;
             y += vy;
             z += vz;
 
-            if (x < 0 || x > level.getWidth()) {
+            if (x < 0 || x > level.getMap().getWidth()) {
                 x -= vx;
                 vx *= -1;
             }
-            if (y < 0 || y > level.getHeight()) {
+            if (y < 0 || y > level.getMap().getHeight()) {
                 y -= vy;
                 vy *= -1;
             }
 
-            vz -= 0.02;
+            vz -= 0.00063;
 
             handleGroundCollision();
 
@@ -166,11 +165,11 @@ public class Player {
         }
     }
 
-    public void render(GraphicsContext ctx) {
+    public void render(Renderer renderer) {
         if (animations.isEmpty()) {
-            sprite.render(ctx, getX() - 24, getY() - 60 - getZ() / 1.5, getAnimationIndex());
+            sprite.render(renderer, getX() - 0.75, getY() - 1.88 - getZ() * 2 / 3, getAnimationIndex());
         } else {
-            animations.render(ctx);
+            animations.render(renderer);
         }
     }
 
@@ -201,7 +200,7 @@ public class Player {
     }
 
     public int getAnimationIndex() {
-        if (getSpeed() < 0.1)
+        if (getSpeed() < 0.003)
             return facing.ordinal();
         return facing.ordinal() + 4;
     }

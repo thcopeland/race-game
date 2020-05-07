@@ -1,18 +1,15 @@
 package race.level;
 
-import javafx.scene.canvas.GraphicsContext;
 import race.Assets;
+import race.Renderer;
 
 public class BigMaple extends Obstacle {
-    public static final int offsetX = -48;
-    public static final int offsetY = -120;
-
-    public BigMaple(int x, int y) {
+    public BigMaple(double x, double y) {
         super(x, y);
     }
 
     @Override
-    public void render(GraphicsContext ctx) {
-        ctx.drawImage(Assets.OBSTACLES, 0, 0, 96, 137, getX() + offsetX, getY() + offsetY, 96, 137);
+    public void render(Renderer renderer) {
+        renderer.renderImage(Assets.OBSTACLES, 0, 0, 96, 137, getX() - 1.5, getY() - 3.75);
     }
 }

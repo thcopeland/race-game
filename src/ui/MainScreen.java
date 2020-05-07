@@ -14,6 +14,8 @@ public class MainScreen {
 
     public void activate() {
         stage.getScene().setRoot(buildScene());
+
+        stage.setFullScreen(true);
     }
 
     public Parent buildScene() {

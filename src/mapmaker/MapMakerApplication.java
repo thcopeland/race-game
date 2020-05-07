@@ -21,6 +21,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import race.level.Level;
 import race.level.Map;
+import race.level.MapTile;
 import race.level.Obstacle;
 
 /**
@@ -37,12 +38,6 @@ public class MapMakerApplication extends Application {
         stage.show();
     }
 
-    /**
-     * Create the startup scene. Includes a "logo," and a choice between creating a
-     * new map or loading one from the filesystem.
-     * 
-     * @return the created scene
-     */
     public Scene buildStartScene(Stage stage) {
         GridPane pane = new GridPane();
         pane.setHgap(10);
@@ -62,11 +57,8 @@ public class MapMakerApplication extends Application {
 
         pane.addColumn(0, header, buttonContainer, errorText);
 
-        // switch over to a screen asking for map dimensions
         createMapButton.setOnAction(e -> stage.setScene(buildNewMapScene(stage)));
 
-        // open the OS file selector, load it if possible, and switch to the
-        // mapmaker application
         loadMapButton.setOnAction(evt -> {
             FileChooser chooser = new FileChooser();
             File f = chooser.showOpenDialog(stage);
@@ -78,7 +70,6 @@ public class MapMakerApplication extends Application {
                     errorText.setText(String.format("Error: %s", e.getMessage()));
                 }
             } else {
-                // no file chosen
                 errorText.setText("Error: Select a file");
             }
         });
@@ -108,18 +99,24 @@ public class MapMakerApplication extends Application {
         Button createEmptyMapButton = new Button("Create Map");
 
         createEmptyMapButton.setOnAction(e -> {
-            // check whehter the dimensions are numeric
             if (!mapWidth.getText().matches("^\\d+$")) {
                 error.setText("Invalid map width");
             } else if (!mapHeight.getText().matches("^\\d+$")) {
                 error.setText("Invalid map height");
             } else {
-                // create a new Level
-                Map map = new Map(Integer.parseInt(mapWidth.getText()), Integer.parseInt(mapHeight.getText()));
+                int width = Integer.parseInt(mapWidth.getText()), height = Integer.parseInt(mapHeight.getText());
+                MapTile[][] grid = new MapTile[height][width];
+
+                for (int i = 0; i < height; i++) {
+                    for (int j = 0; j < width; j++) {
+                        grid[i][j] = MapTile.DEFAULT;
+                    }
+                }
+
+                Map map = new Map(width, height, grid);
 
                 ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
 
-                // switch to the MapMaker application
                 new MapMaker(new Level(map, obstacles)).activate(stage);
             }
         });

@@ -1,6 +1,5 @@
 package race;
 
-import javafx.scene.canvas.GraphicsContext;
 import race.level.Mine;
 
 public class ExplosionAnimation extends Animation {
@@ -19,9 +18,9 @@ public class ExplosionAnimation extends Animation {
     }
 
     @Override
-    public void render(GraphicsContext ctx) {
+    public void render(Renderer renderer) {
         long frame = clock / 5;
-        ctx.drawImage(Assets.EFFECTS, 100 * frame, 0, 100, 100, source.getX() - 50, source.getY() - 100, 100, 100);
+        renderer.renderImage(Assets.EFFECTS, 100 * frame, 0, 100, 100, source.getX() - 1.56, source.getY() - 3.13);
     }
 
     @Override

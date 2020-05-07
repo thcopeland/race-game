@@ -1,21 +1,16 @@
 package race.level;
 
-import javafx.scene.canvas.GraphicsContext;
 import race.Assets;
-import race.Game;
+import race.Renderer;
 
+/**
+ * A map consists of a 2D grid of MapTiles which describes a level's terrain.
+ * Locations are specified using integer map coordinates, which correspond
+ * exactly to single MapTiles in the grid.
+ */
 public class Map {
-
     private int width, height;
     private MapTile[][] map;
-
-    public Map(int width, int height) {
-        this(width, height, new MapTile[height][width]);
-
-        for (int y = 0; y < height; y++)
-            for (int x = 0; x < width; x++)
-                setTile(y, x, MapTile.DEFAULT);
-    }
 
     public Map(int width, int height, MapTile[][] map) {
         this.width = width;
@@ -43,13 +38,11 @@ public class Map {
         map[row][col] = t;
     }
 
-    public void render(GraphicsContext ctx) {
+    public void render(Renderer renderer) {
         for (int row = 0; row < getHeight(); row++) {
             for (int col = 0; col < getWidth(); col++) {
-                getTile(row, col).getTile().render(ctx, Assets.TILESHEET, col * Game.GAME_SCALE, row * Game.GAME_SCALE,
-                        Game.GAME_SCALE, Game.GAME_SCALE);
+                getTile(row, col).getTile().render(renderer, Assets.TILESHEET, col, row);
             }
         }
     }
-
 }

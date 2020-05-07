@@ -6,12 +6,12 @@ import java.util.HashSet;
 
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import race.Game;
 import race.Player;
+import race.Renderer;
 import race.Sprite;
 
 /**
@@ -26,7 +26,7 @@ public class GameApplication {
     private Game game;
 
     private Canvas canvas;
-    private GraphicsContext context;
+    private Renderer renderer;
 
     private AnimationTimer clock;
 
@@ -34,7 +34,7 @@ public class GameApplication {
 
     /**
      * Create a new GameApplication instance.
-     * 
+     *
      * @param stage the race window
      * @throws IOException    if the race fails to load a level
      * @throws ParseException if the race fails to load a level
@@ -42,8 +42,7 @@ public class GameApplication {
     public GameApplication(Stage stage, Sprite s1, Sprite s2) throws IOException, ParseException {
         this.stage = stage;
         canvas = new Canvas(stage.getWidth(), stage.getHeight());
-        context = canvas.getGraphicsContext2D();
-
+        renderer = new Renderer(canvas.getGraphicsContext2D());
         game = new Game(s1, s2);
 
         clock = new AnimationTimer() {
@@ -79,7 +78,7 @@ public class GameApplication {
     public void tick() {
         handleKeys();
         game.tick();
-        game.render(context);
+        game.render(renderer);
 
         if (game.isFinished()) {
             clock.stop();

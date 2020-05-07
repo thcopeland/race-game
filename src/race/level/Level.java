@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-import race.Game;
-
 public class Level {
     private Map map;
     private ArrayList<Obstacle> obstacles;
@@ -61,28 +59,18 @@ public class Level {
         this.goal = goal;
     }
 
-    public double getWidth() {
-        return map.getWidth() * Game.GAME_SCALE;
-    }
-
-    public double getHeight() {
-        return map.getHeight() * Game.GAME_SCALE;
-    }
-
     /**
      * @return the terrain type at the given coordinates
      */
     public Terrain getTerrainAt(double x, double y) {
-        int row = (int) (y / Game.GAME_SCALE), col = (int) (x / Game.GAME_SCALE);
-
-        return map.getTile(row, col).getTerrain((int) x % Game.GAME_SCALE, (int) y % Game.GAME_SCALE);
+        return map.getTile((int) y, (int) x).getTerrain(x % 1, y % 1);
     }
 
     /**
      * Put the obstacles in render order (y-coordinate ascending)
      */
     public void reorderObstacles() {
-        obstacles.sort((a, b) -> a.getY() - b.getY());
+        obstacles.sort((a, b) -> (int) (64 * (a.getY() - b.getY())));
     }
 
     /**
@@ -94,7 +82,7 @@ public class Level {
 
     /**
      * Export the level data to a file
-     * 
+     *
      * @throws IOException
      */
     public void export(String path) throws IOException {
@@ -136,7 +124,7 @@ public class Level {
 
     /**
      * Import level data from a file
-     * 
+     *
      * @throws IOException
      * @throws ParseException
      */
@@ -153,7 +141,7 @@ public class Level {
             int width = s.nextInt(), height = s.nextInt();
 
             // create a map instance
-            Map map = new Map(width, height);
+            Map map = new Map(width, height, new MapTile[height][width]);
 
             // read map data
             for (int y = 0; y < height; y++) {

@@ -1,7 +1,7 @@
 package race.level;
 
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import race.Renderer;
 
 /**
  * A Tile contains information about a small portion of a tilesheet.
@@ -32,7 +32,7 @@ public class Tile {
         return height;
     }
 
-    public void render(GraphicsContext ctx, Image source, int x, int y, int w, int h) {
-        ctx.drawImage(source, offsetX, offsetY, width, height, x, y, w, h);
+    public void render(Renderer renderer, Image src, int x, int y) {
+        renderer.renderImage(src, offsetX, offsetY, width, height, x, y);
     }
 }

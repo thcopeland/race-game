@@ -56,9 +56,6 @@ public class EndgameScreen {
     }
 
     public void renderVictory(GraphicsContext ctx) {
-        player1.getSprite().useFrame(1);
-        player2.getSprite().useFrame(1);
-
         ctx.setImageSmoothing(false);
         ctx.setFill(Color.GOLD);
         ctx.setFont(Font.font(35));
@@ -73,12 +70,12 @@ public class EndgameScreen {
     }
 
     public void renderPlayer1Victory(GraphicsContext ctx) {
-        player1.getSprite().render(ctx, stage.getWidth() / 2 - 100, 200, 120, 160, 5);
+        player1.getSprite().renderDirectly(ctx, stage.getWidth() / 2 - 100, 200, 120, 160, 5, 1);
 
         ctx.save();
         ctx.translate(stage.getWidth() / 2 + 100, 385);
         ctx.rotate(-90);
-        player2.getSprite().render(ctx, 0, 0, 120, 160, 3);
+        player2.getSprite().renderDirectly(ctx, 0, 0, 120, 160, 3, 1);
         ctx.restore();
 
         ctx.fillText(Integer.toString(player1.getScore()), stage.getWidth() / 2 - 50, 400);
@@ -86,12 +83,12 @@ public class EndgameScreen {
     }
 
     public void renderPlayer2Victory(GraphicsContext ctx) {
-        player2.getSprite().render(ctx, stage.getWidth() / 2, 200, 120, 160, 3);
+        player2.getSprite().renderDirectly(ctx, stage.getWidth() / 2, 200, 120, 160, 3, 1);
 
         ctx.save();
         ctx.translate(stage.getWidth() / 2 - 100, 260);
         ctx.rotate(90);
-        player1.getSprite().render(ctx, 0, 0, 120, 160, 5);
+        player1.getSprite().renderDirectly(ctx, 0, 0, 120, 160, 5, 1);
         ctx.restore();
 
         ctx.fillText(Integer.toString(player2.getScore()), stage.getWidth() / 2 + 50, 400);
@@ -99,8 +96,8 @@ public class EndgameScreen {
     }
 
     public void renderTie(GraphicsContext ctx) {
-        player1.getSprite().render(ctx, stage.getWidth() / 2 - 100, 200, 120, 160, 5);
-        player2.getSprite().render(ctx, stage.getWidth() / 2, 200, 120, 160, 3);
+        player1.getSprite().renderDirectly(ctx, stage.getWidth() / 2 - 100, 200, 120, 160, 5, 1);
+        player2.getSprite().renderDirectly(ctx, stage.getWidth() / 2, 200, 120, 160, 3, 1);
 
         ctx.fillText(Integer.toString(player1.getScore()), stage.getWidth() / 2 - 50, 400);
         ctx.fillText(Integer.toString(player2.getScore()), stage.getWidth() / 2 + 50, 400);

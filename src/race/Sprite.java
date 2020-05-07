@@ -47,37 +47,25 @@ public class Sprite {
         return offsetY * height;
     }
 
-    /**
-     * Increment the sprite's counter. Every few ticks, the animation frame index is
-     * advanced.
-     */
     public void tick() {
         clock++;
     }
 
-    public void useFrame(int i) {
-        clock = i * FRAME_DURATION;
-    }
-
-    /**
-     * Render the sprite
-     *
-     * @param ctx       the drawing context
-     * @param x         the x-position of the sprite
-     * @param y         the y-position of the sprite
-     * @param animation the index of the current animation sequence
-     */
-    public void render(GraphicsContext ctx, double x, double y, int animation) {
-        render(ctx, x, y, width, height, animation);
-    }
-
-    public void render(GraphicsContext ctx, double x, double y, int width, int height, int animation) {
-        // determine the coordinates of the appropriate animation frame
+    public void render(Renderer renderer, double x, double y, int animation) {
         int frame = (int) (clock / FRAME_DURATION % animations[animation].length);
         int[] animationCoords = animations[animation][frame];
 
+        renderer.renderImage(Assets.SPRITES, (offsetX + animationCoords[0]) * width,
+                                             (offsetY + animationCoords[1]) * height,
+                                             width, height, x, y);
+    }
+
+    public void renderDirectly(GraphicsContext ctx, double x, double y, int width, int height, int animation, int frame) {
+        int[] animationCoords = animations[animation][frame];
+
         ctx.drawImage(Assets.SPRITES, (offsetX + animationCoords[0]) * this.width,
-                (offsetY + animationCoords[1]) * this.height, this.width, this.height, (int) x, (int) y, width, height);
+                                      (offsetY + animationCoords[1]) * this.height,
+                                      this.width, this.height, x, y, width, height);
     }
 
 }

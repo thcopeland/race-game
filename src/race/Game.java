@@ -4,17 +4,11 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.Stack;
 
-import javafx.scene.canvas.GraphicsContext;
 import race.level.GameLocation;
 import race.level.Level;
 import race.level.Obstacle;
 
 public class Game {
-    /**
-     * the dimensions of a map square in pixels
-     */
-    public static int GAME_SCALE = 32;
-
     private LevelManager levels;
 
     private Player player1, player2;
@@ -87,16 +81,18 @@ public class Game {
     /**
      * Render the race
      */
-    public void render(GraphicsContext ctx) {
+    public void render(Renderer renderer) {
+        renderer.setRenderingScale(levels.getLevel());
+
         if (animations.isEmpty()) {
-            renderGame(ctx);
+            renderGame(renderer);
         } else {
-            animations.render(ctx);
+            animations.render(renderer);
         }
     }
 
-    public void renderGame(GraphicsContext ctx) {
-        levels.getLevel().getMap().render(ctx);
+    public void renderGame(Renderer renderer) {
+        levels.getLevel().getMap().render(renderer);
 
         // render the players and obstacles so that "near" objects are rendered
         // after "far" objects, creating a feeling of depth
@@ -111,12 +107,12 @@ public class Game {
 
         for (Obstacle o : levels.getLevel().getObstacles()) {
             while (!stack.isEmpty() && stack.peek().getY() < o.getY())
-                stack.pop().render(ctx);
-            o.render(ctx);
+                stack.pop().render(renderer);
+            o.render(renderer);
         }
 
         while (!stack.isEmpty())
-            stack.pop().render(ctx);
+            stack.pop().render(renderer);
     }
 
     public void checkForWinner() {

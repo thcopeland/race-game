@@ -15,6 +15,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import race.PlayerSprites;
+import race.Renderer;
 import race.Sprite;
 
 public class SpriteSelectionScreen {
@@ -52,8 +53,9 @@ public class SpriteSelectionScreen {
             Sprite sprite = sprites[i];
             Canvas display = new Canvas(width, height);
             GraphicsContext ctx = display.getGraphicsContext2D();
+            Renderer renderer = new Renderer(ctx);
             ctx.setImageSmoothing(false);
-            sprite.render(ctx, 0, 0, width, height, 2);
+            sprite.renderDirectly(renderer.getContext(), 0, 0, width, height, 2, 0);
 
             display.setOnMouseClicked(e -> {
                 if (player1 == null) {

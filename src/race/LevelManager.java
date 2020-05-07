@@ -45,7 +45,7 @@ public class LevelManager {
 
     /**
      * Load a level from a file. Searches in <code>Assets.LEVEL_DIR</code>.
-     * 
+     *
      * @param level the level number
      * @return the Level object loaded from the filesystem
      * @throws IOException    generally, file does not exist

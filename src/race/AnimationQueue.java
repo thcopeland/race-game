@@ -2,8 +2,6 @@ package race;
 
 import java.util.ArrayDeque;
 
-import javafx.scene.canvas.GraphicsContext;
-
 public class AnimationQueue {
     private ArrayDeque<Animation> animations;
 
@@ -18,8 +16,8 @@ public class AnimationQueue {
             animations.pop().onCompletion();
     }
 
-    public void render(GraphicsContext ctx) {
-        current().render(ctx);
+    public void render(Renderer renderer) {
+        current().render(renderer);
     }
 
     public boolean isEmpty() {

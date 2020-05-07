@@ -5,13 +5,13 @@ public class PlayerSprites {
 
     /* @formatter:off */
     private static final int[][][] ANIMATIONS = { { { 1, 0 } }, // idle back
-                                                { { 1, 1 } }, // idle right
-                                                { { 1, 2 } }, // idle front
-                                                { { 1, 3 } }, // idle left
-                                                { { 0, 0 }, { 1, 0 }, { 2, 0 } }, // walk back
-                                                { { 0, 1 }, { 1, 1 }, { 2, 1 } }, // walk right
-                                                { { 0, 2 }, { 1, 2 }, { 2, 2 } }, // walk forward
-                                                { { 0, 3 }, { 1, 3 }, { 2, 3 } } // walk left
+                                                  { { 1, 1 } }, // idle right
+                                                  { { 1, 2 } }, // idle front
+                                                  { { 1, 3 } }, // idle left
+                                                  { { 0, 0 }, { 1, 0 }, { 2, 0 } }, // walk back
+                                                  { { 0, 1 }, { 1, 1 }, { 2, 1 } }, // walk right
+                                                  { { 0, 2 }, { 1, 2 }, { 2, 2 } }, // walk forward
+                                                  { { 0, 3 }, { 1, 3 }, { 2, 3 } } // walk left
     };
 
     private static final int[] DWARF_ELDER_OFFSET =        { 0, 0 },

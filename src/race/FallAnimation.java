@@ -1,6 +1,5 @@
 package race;
 
-import javafx.scene.canvas.GraphicsContext;
 import race.level.GameLocation;
 
 public class FallAnimation extends Animation {
@@ -35,12 +34,12 @@ public class FallAnimation extends Animation {
     }
 
     @Override
-    public void render(GraphicsContext ctx) {
+    public void render(Renderer renderer) {
         double transparency = 1.0 - clock / 120.0;
 
-        ctx.setGlobalAlpha(transparency);
-        player.getSprite().render(ctx, x - 24, y - 60, player.getAnimationIndex());
-        ctx.setGlobalAlpha(1.0);
+        renderer.getContext().setGlobalAlpha(transparency);
+        player.getSprite().render(renderer, x - 0.75, y - 1.88, player.getAnimationIndex());
+        renderer.getContext().setGlobalAlpha(1.0);
     }
 
     @Override
@@ -48,7 +47,7 @@ public class FallAnimation extends Animation {
         x += vx;
         y += vy;
         vx *= 0.99;
-        vy += 0.005;
+        vy += 0.000156;
 
         clock += 1;
     }

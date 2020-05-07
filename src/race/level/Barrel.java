@@ -1,28 +1,25 @@
 package race.level;
 
-import javafx.scene.canvas.GraphicsContext;
 import race.Assets;
+import race.Renderer;
 
 public class Barrel extends Obstacle {
-    public static final int offsetX = -16;
-    public static final int offsetY = -40;
-
-    public Barrel(int x, int y) {
+    public Barrel(double x, double y) {
         super(x, y);
     }
 
     @Override
-    public void render(GraphicsContext ctx) {
-        ctx.drawImage(Assets.OBSTACLES, 192, 0, 32, 64, getX() + offsetX, getY() + offsetY, 32, 64);
+    public void render(Renderer renderer) {
+        renderer.renderImage(Assets.OBSTACLES, 192, 0, 32, 64, getX() - 0.5, getY() - 1.25);
     }
 
     @Override
-    public int collisionRadius() {
-        return 15;
+    public double collisionRadius() {
+        return 0.5;
     }
 
     @Override
-    public int collisionHeight() {
-        return 40;
+    public double collisionHeight() {
+        return 1;
     }
 }

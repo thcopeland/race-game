@@ -1,7 +1,5 @@
 package race;
 
-import javafx.scene.canvas.GraphicsContext;
-
 public class BurningAnimation extends Animation {
     private Player player;
     private double x, y, z, vx, vy, vz;
@@ -23,7 +21,7 @@ public class BurningAnimation extends Animation {
 
     @Override
     public boolean isDone() {
-        return z >= 64;
+        return z >= 2;
     }
 
     @Override
@@ -32,12 +30,10 @@ public class BurningAnimation extends Animation {
     }
 
     @Override
-    public void render(GraphicsContext ctx) {
+    public void render(Renderer renderer) {
         long frame = clock / 3 % 60;
 
-        int depth = (int) z;
-        ctx.drawImage(Assets.EFFECTS, 64 * frame, 100, 64, 64 - depth, (int) (x - 32), (int) (y - 64 + depth), 64,
-                64 - depth);
+        renderer.renderImage(Assets.EFFECTS, 64 * frame, 100, 64, 64-z*32, x-1, y-2+z);
     }
 
     @Override
@@ -49,10 +45,9 @@ public class BurningAnimation extends Animation {
         vx *= 0.96;
 
         if (clock > 100) {
-            vz += 0.01;
+            vz += 0.000094;
         }
 
         clock++;
     }
-
 }

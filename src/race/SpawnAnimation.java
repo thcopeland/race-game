@@ -1,32 +1,33 @@
 package race;
 
-import javafx.scene.canvas.GraphicsContext;
 import race.level.GameLocation;
 
 public class SpawnAnimation extends Animation {
     private GameLocation spawnPoint;
     private Player player;
-    private long clock;
+    private double speed;
 
     public SpawnAnimation(GameLocation spawnPoint, Player player) {
         this.spawnPoint = spawnPoint;
         this.player = player;
-        clock = 2 * spawnPoint.getY();
+        speed = 0;
+
+        player.setY(0);
+        player.setX(spawnPoint.getX());
     }
 
     @Override
     public boolean isDone() {
-        return clock < 0;
+        return player.getY() >= spawnPoint.getY();
     }
 
     @Override
-    public void render(GraphicsContext ctx) {
-        player.getSprite().render(ctx, player.getX() - 24, player.getY() - 60, 2);
+    public void render(Renderer renderer) {
+        player.getSprite().render(renderer, player.getX() - 0.75, player.getY() - 1.88, 2);
     }
 
     @Override
     public void update() {
-        player.setX(spawnPoint.getX());
-        player.setY(spawnPoint.getY() - clock--);
+        player.setY(player.getY() + (speed += 0.0004));
     }
 }

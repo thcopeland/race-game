@@ -28,7 +28,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import race.Assets;
-import race.Game;
+import race.Renderer;
 import race.level.Barrel;
 import race.level.BigMaple;
 import race.level.BigPine;
@@ -47,8 +47,7 @@ public class MapMaker {
     }
 
     private Level level;
-
-    private GraphicsContext context;
+    private Renderer renderer;
 
     /**
      * Important UI elements
@@ -70,41 +69,44 @@ public class MapMaker {
     }
 
     public Scene buildScene(double width, double height) {
+        TabPane toolbarPane = (TabPane) buildToolbar();
+
         // create a canvas, drawing context, and renderer
-        canvas = new Canvas(level.getMap().getWidth() * Game.GAME_SCALE, level.getMap().getHeight() * Game.GAME_SCALE);
+        canvas = new Canvas(width, height);
         canvas.setCursor(Cursor.CROSSHAIR);
 
-        context = canvas.getGraphicsContext2D();
+        renderer = new Renderer(canvas.getGraphicsContext2D());
+        renderer.setRenderingScale(level);
         render();
 
-        // allow scrolling across the canvas
         canvasContainer = new ScrollPane(canvas);
         canvasContainer.setVbarPolicy(ScrollBarPolicy.NEVER);
         canvasContainer.setHbarPolicy(ScrollBarPolicy.NEVER);
 
-        TabPane toolbarPane = (TabPane) buildToolbar();
+        canvas.setOnMouseClicked(e -> {
+            if (e.getClickCount() == 2) {
+                toolbarPane.setManaged(!toolbarPane.isManaged());
+            } else {
+                handleCanvasClick(e);
+            }
+        });
+
+        canvas.setOnMouseDragged(canvas.getOnMouseClicked());
 
         // this pane contains the entire UI
         GridPane pane = new GridPane();
         pane.add(toolbarPane, 0, 0);
         pane.add(canvasContainer, 1, 0);
 
-        // add event handlers
-        canvas.setOnMouseClicked(e -> handleCanvasClick(e));
-        canvas.setOnMouseDragged(canvas.getOnMouseClicked());
-
-        // draw a little rectangle on mouse move
         canvas.setOnMouseMoved(e -> {
-            // convert race coordinates into map coordinates
-            int x = (int) (e.getX() - canvasContainer.getHvalue()) / Game.GAME_SCALE,
-                    y = (int) (e.getY() - canvasContainer.getVvalue()) / Game.GAME_SCALE;
+            int x = (int) (e.getX() - canvasContainer.getHvalue()) / renderer.getScaleX(),
+                y = (int) (e.getY() - canvasContainer.getVvalue()) / renderer.getScaleY();
 
-            // draw the map (to clear previously drawn rectangles)
             render();
 
-            // draw the rectangle
-            context.setStroke(Paint.valueOf("#00000088"));
-            context.strokeRect(x * Game.GAME_SCALE, y * Game.GAME_SCALE, Game.GAME_SCALE, Game.GAME_SCALE);
+            renderer.getContext().setStroke(Paint.valueOf("#00000088"));
+            renderer.getContext().strokeRect(x * renderer.getScaleX(), y * renderer.getScaleY(),
+                                             renderer.getScaleX(), renderer.getScaleY());
         });
 
         // create and return the constructed scene
@@ -126,16 +128,17 @@ public class MapMaker {
                 new Tab("Obstacles", buildObstaclesView()));
 
         toolbar.getSelectionModel().selectedItemProperty().addListener((obs, old, val) -> {
-            if (val.getText().equals("Tiles"))
+            if (val.getText().equals("Tiles")) {
                 mode = MapMakerMode.TILE;
-            else if (val.getText().equals("Obstacles"))
+            } else if (val.getText().equals("Obstacles")) {
                 mode = MapMakerMode.ADD_OBSTACLE;
-            else
+            } else {
                 mode = MapMakerMode.DISABLE;
+            }
         });
 
         // set the width so that the entire palette will be visible
-        toolbar.setMinWidth((Game.GAME_SCALE + 2) * tilePalette.getColumnCount());
+        toolbar.setMinWidth(34 * tilePalette.getColumnCount());
         return toolbar;
     }
 
@@ -187,6 +190,7 @@ public class MapMaker {
         importButton.setOnAction(evt -> {
             try {
                 level = Level.load(importPath.getText());
+                renderer.setRenderingScale(level);
                 render();
 
                 importStatus.setFill(Color.BLACK);
@@ -264,29 +268,33 @@ public class MapMaker {
     }
 
     private void render() {
-        level.getMap().render(context);
+        GraphicsContext context = renderer.getContext();
+        level.getMap().render(renderer);
 
         context.setFill(Color.DARKGOLDENROD);
-        if (level.getPlayerSpawn1() != null)
-            context.fillOval(level.getPlayerSpawn1().getX() - 16, level.getPlayerSpawn1().getY() - 16, 32, 32);
-        if (level.getPlayerSpawn2() != null)
-            context.fillOval(level.getPlayerSpawn2().getX() - 16, level.getPlayerSpawn2().getY() - 16, 32, 32);
+        if (level.getPlayerSpawn1() != null) {
+            context.fillOval(renderer.getScaleX() * level.getPlayerSpawn1().getX() - 16,
+                             renderer.getScaleY() * level.getPlayerSpawn1().getY() - 16, 32, 32);
+        }
+        if (level.getPlayerSpawn2() != null) {
+            context.fillOval(renderer.getScaleX() * level.getPlayerSpawn2().getX() - 16,
+                             renderer.getScaleY() * level.getPlayerSpawn2().getY() - 16, 32, 32);
+        }
 
         context.setFill(Color.GOLD);
-        if (level.getGoal() != null)
-            context.fillOval(level.getGoal().getX() - 16, level.getGoal().getY() - 16, 32, 32);
+        if (level.getGoal() != null) {
+            context.fillOval(renderer.getScaleX() * level.getGoal().getX() - 16,
+                             renderer.getScaleY() * level.getGoal().getY() - 16, 32, 32);
+        }
 
-        for (Obstacle o : level.getObstacles())
-            o.render(context);
+        for (Obstacle o : level.getObstacles()) {
+            o.render(renderer);
+        }
     }
 
-    /**
-     * this is called when the canvas is clicked
-     */
     private void handleCanvasClick(MouseEvent evt) {
-        // the coordinates of the click relative the the canvas, accounting
-        // for scrolling
-        int x = (int) (evt.getX() - canvasContainer.getHvalue()), y = (int) (evt.getY() - canvasContainer.getVvalue());
+        double x = (evt.getX() - canvasContainer.getHvalue()) / renderer.getScaleX(),
+               y = (evt.getY() - canvasContainer.getVvalue()) / renderer.getScaleY();
 
         switch (mode) {
         case TILE:
@@ -298,28 +306,25 @@ public class MapMaker {
         case REMOVE_OBSTACLE:
             handleClickRemoveObstacle(x, y);
             break;
-        case SET_SPAWN1:
-        case SET_SPAWN2:
+        case SET_SPAWN1: case SET_SPAWN2:
             handleClickSpawn(x, y);
             break;
         case SET_GOAL:
             handleClickGoal(x, y);
             break;
-        default:
-            return; // do nothing
         }
 
         // render the map
         render();
     }
 
-    private void handleClickTile(int x, int y) {
-        if (tilePalette.getSelected() != null) {
-            level.getMap().setTile(y / Game.GAME_SCALE, x / Game.GAME_SCALE, (MapTile) tilePalette.getSelected());
+    private void handleClickTile(double x, double y) {
+        if (tilePalette.getSelected() != null && level.getMap().isWithinMap((int) y, (int) y)) {
+            level.getMap().setTile((int) y, (int) x, (MapTile) tilePalette.getSelected());
         }
     }
 
-    private void handleClickObstacle(int x, int y) {
+    private void handleClickObstacle(double x, double y) {
         if (System.currentTimeMillis() - lastObstacleTimestamp > 250) {
             switch (obstacleSelector.selectionModelProperty().getValue().getSelectedItem()) {
             case "Cup":
@@ -349,11 +354,11 @@ public class MapMaker {
         }
     }
 
-    private void handleClickRemoveObstacle(int x, int y) {
+    private void handleClickRemoveObstacle(double x, double y) {
         level.getObstacles().removeIf(o -> Math.hypot(x - o.getX(), y - o.getY()) < 30);
     }
 
-    private void handleClickSpawn(int x, int y) {
+    private void handleClickSpawn(double x, double y) {
         if (mode == MapMakerMode.SET_SPAWN1) {
             level.setPlayerSpawn1(new GameLocation(x, y));
         } else if (mode == MapMakerMode.SET_SPAWN2) {
@@ -363,7 +368,7 @@ public class MapMaker {
         mode = MapMakerMode.ADD_OBSTACLE;
     }
 
-    private void handleClickGoal(int x, int y) {
+    private void handleClickGoal(double x, double y) {
         level.setGoal(new GameLocation(x, y));
         mode = MapMakerMode.ADD_OBSTACLE;
     }
