@@ -70,12 +70,12 @@ public class EndgameScreen {
     }
 
     public void renderPlayer1Victory(GraphicsContext ctx) {
-        player1.getSprite().renderDirectly(ctx, stage.getWidth() / 2 - 100, 200, 120, 160, 5, 1);
+        player1.getSprite().renderDirectly(ctx, stage.getWidth() / 2 - 100, 200, 120, 160, 1, 0);
 
         ctx.save();
         ctx.translate(stage.getWidth() / 2 + 100, 385);
         ctx.rotate(-90);
-        player2.getSprite().renderDirectly(ctx, 0, 0, 120, 160, 3, 1);
+        player2.getSprite().renderDirectly(ctx, 0, 0, 120, 160, 3, 0);
         ctx.restore();
 
         ctx.fillText(Integer.toString(player1.getScore()), stage.getWidth() / 2 - 50, 400);
@@ -83,12 +83,12 @@ public class EndgameScreen {
     }
 
     public void renderPlayer2Victory(GraphicsContext ctx) {
-        player2.getSprite().renderDirectly(ctx, stage.getWidth() / 2, 200, 120, 160, 3, 1);
+        player2.getSprite().renderDirectly(ctx, stage.getWidth() / 2, 200, 120, 160, 3, 0);
 
         ctx.save();
         ctx.translate(stage.getWidth() / 2 - 100, 260);
         ctx.rotate(90);
-        player1.getSprite().renderDirectly(ctx, 0, 0, 120, 160, 5, 1);
+        player1.getSprite().renderDirectly(ctx, 0, 0, 120, 160, 1, 0);
         ctx.restore();
 
         ctx.fillText(Integer.toString(player2.getScore()), stage.getWidth() / 2 + 50, 400);
@@ -96,8 +96,8 @@ public class EndgameScreen {
     }
 
     public void renderTie(GraphicsContext ctx) {
-        player1.getSprite().renderDirectly(ctx, stage.getWidth() / 2 - 100, 200, 120, 160, 5, 1);
-        player2.getSprite().renderDirectly(ctx, stage.getWidth() / 2, 200, 120, 160, 3, 1);
+        player1.getSprite().renderDirectly(ctx, stage.getWidth() / 2 - 100, 200, 120, 160, 1, 0);
+        player2.getSprite().renderDirectly(ctx, stage.getWidth() / 2, 200, 120, 160, 3, 0);
 
         ctx.fillText(Integer.toString(player1.getScore()), stage.getWidth() / 2 - 50, 400);
         ctx.fillText(Integer.toString(player2.getScore()), stage.getWidth() / 2 + 50, 400);
