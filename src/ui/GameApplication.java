@@ -46,9 +46,12 @@ public class GameApplication {
         game = new Game(s1, s2);
 
         clock = new AnimationTimer() {
+            private long last = System.nanoTime();
+
             @Override
             public void handle(long t) {
-                tick();
+                tick((t - last)/1000); // convert to microseconds
+                last = t;
             }
         };
 
@@ -66,9 +69,9 @@ public class GameApplication {
         clock.start();
     }
 
-    public void tick() {
+    public void tick(long t) {
         handleKeys();
-        game.tick();
+        game.tick(t);
         game.render(renderer);
 
         if (game.isFinished()) {

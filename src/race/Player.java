@@ -5,7 +5,7 @@ import race.level.Level;
 import race.level.Terrain;
 
 public class Player {
-    private static final double acceleration = 0.01;
+    private static final double acceleration = 0.000001;
 
     /**
      * The various directions a player may go. The order of these directions is
@@ -116,11 +116,11 @@ public class Player {
 
     public void jump() {
         if (animations.isEmpty() && onGround()) {
-            vz = 0.063;
+            vz = 0.00003;
         }
     }
 
-    public void update(Level level) {
+    public void update(long t, Level level) {
         if (animations.isEmpty()) {
             if (onGround()) {
                 terrain = level.getTerrainAt(x, y);
@@ -142,20 +142,20 @@ public class Player {
                 vy /= factor;
             }
 
-            x += vx;
-            y += vy;
-            z += vz;
+            x += vx*t;
+            y += vy*t;
+            z += vz*t;
 
-            if (x < 0 || x > level.getMap().getWidth()) {
-                x -= vx;
+            if (x < 0.4 || x >= level.getMap().getWidth()-0.4) {
+                x -= vx*t;
                 vx *= -1;
             }
-            if (y < 0 || y > level.getMap().getHeight()) {
-                y -= vy;
+            if (y < 1.5 || y >= level.getMap().getHeight()-0.8) {
+                y -= vy*t;
                 vy *= -1;
             }
 
-            vz -= 0.00063;
+            vz -= 0.00000000008*t;
 
             handleGroundCollision();
 
@@ -185,7 +185,7 @@ public class Player {
     }
 
     public boolean onGround() {
-        return Math.abs(z - terrain.getDepth()) < 1;
+        return Math.abs(z - terrain.getDepth()) < 0.1;
     }
 
     public boolean onHole(Level level) {

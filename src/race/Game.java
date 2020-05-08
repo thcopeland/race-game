@@ -61,10 +61,10 @@ public class Game {
             player2.jump();
     }
 
-    public void tick() {
+    public void tick(long t) {
         if (animations.isEmpty()) {
-            player1.update(levels.getLevel());
-            player2.update(levels.getLevel());
+            player1.update(t, levels.getLevel());
+            player2.update(t, levels.getLevel());
 
             for (Obstacle o : levels.getLevel().getObstacles())
                 o.update(player1, player2);

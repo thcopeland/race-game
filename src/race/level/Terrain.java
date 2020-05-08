@@ -1,13 +1,13 @@
 package race.level;
 
 public enum Terrain {
-    GRASS    (0.93, 0.025, 0),
-    DIRT     (0.93, 0.031, 0),
-    ROCK     (0.93, 0.031, 0),
-    LAVA     (0.93, 0.009, -0.31),
-    WATER    (0.95, 0.013, -0.31),
-    BRACKISH (0.95, 0.003, -0.31),
-    HOLE     (0.95, 0.025, 0);
+    GRASS    (0.93, 0.0000100, 0),
+    DIRT     (0.93, 0.0000124, 0),
+    ROCK     (0.93, 0.0000124, 0),
+    LAVA     (0.93, 0.0000036, -0.31),
+    WATER    (0.95, 0.0000052, -0.31),
+    BRACKISH (0.95, 0.0000012, -0.31),
+    HOLE     (0.95, 0.0000100, 0);
 
     private double friction;
     private double speed;
@@ -15,7 +15,7 @@ public enum Terrain {
 
     private Terrain(double friction, double speed, double depth) {
         this.friction = friction;
-        this.speed = speed;
+        this.speed = speed; // units (generally around 32px) per microsecond
         this.depth = depth;
     }
 
