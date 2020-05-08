@@ -21,8 +21,8 @@ public abstract class Obstacle {
             double dist2 = Math.pow(p.getX() - x, 2) + Math.pow(p.getY() - y, 2);
 
             if (dist2 < Math.pow(this.collisionRadius(), 2) && p.getZ() <= this.collisionHeight()) {
-                p.setVx(p.getVx() + Math.copySign(0.01 / dist2, p.getX() - x));
-                p.setVy(p.getVy() + Math.copySign(0.01 / dist2, p.getY() - y));
+                p.setVx(p.getVx() + Math.copySign(0.000001 / dist2, p.getX() - x));
+                p.setVy(p.getVy() + Math.copySign(0.000001 / dist2, p.getY() - y));
             }
         }
     };

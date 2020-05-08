@@ -200,7 +200,7 @@ public class Player {
     }
 
     public int getAnimationIndex() {
-        if (getSpeed() < 0.003)
+        if (getSpeed() < 0.0000001)
             return facing.ordinal();
         return facing.ordinal() + 4;
     }
