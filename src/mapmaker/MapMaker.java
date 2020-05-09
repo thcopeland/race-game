@@ -344,7 +344,7 @@ public class MapMaker {
     }
 
     private void handleClickRemoveObstacle(double x, double y) {
-        level.getObstacles().removeIf(o -> Math.hypot(x - o.getX(), y - o.getY()) < 30);
+        level.getObstacles().removeIf(o -> Math.hypot(x - o.getX(), y - o.getY()) < 1);
     }
 
     private void handleClickSpawn(double x, double y) {
