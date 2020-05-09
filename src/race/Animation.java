@@ -7,5 +7,5 @@ public abstract class Animation {
 
     public abstract void render(Renderer renderer);
 
-    public abstract void update();
+    public abstract void update(long t);
 }

@@ -15,7 +15,7 @@ public class Cup extends Obstacle {
     }
 
     @Override
-    public void update(Player... players) {
+    public void update(long t, Player... players) {
         // nothing
     }
 }

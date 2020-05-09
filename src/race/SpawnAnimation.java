@@ -13,6 +13,7 @@ public class SpawnAnimation extends Animation {
         speed = 0;
 
         player.setY(0);
+        player.setZ(0);
         player.setX(spawnPoint.getX());
     }
 
@@ -27,7 +28,7 @@ public class SpawnAnimation extends Animation {
     }
 
     @Override
-    public void update() {
-        player.setY(player.getY() + (speed += 0.0004));
+    public void update(long t) {
+        player.setY(player.getY() + (speed += 0.00000008*t));
     }
 }

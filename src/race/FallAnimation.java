@@ -19,8 +19,8 @@ public class FallAnimation extends Animation {
         vx = player.getVx();
         vy = player.getVy() / 4 - player.getVz() / 4;
 
-        this.player.setX(-100);
-        this.player.setY(-100);
+        player.setX(-10);
+        player.setY(-10);
     }
 
     @Override
@@ -43,11 +43,11 @@ public class FallAnimation extends Animation {
     }
 
     @Override
-    public void update() {
-        x += vx;
-        y += vy;
+    public void update(long t) {
+        x += vx*t;
+        y += vy*t;
         vx *= 0.99;
-        vy += 0.000156;
+        vy += 0.00000000003*t;
 
         clock += 1;
     }

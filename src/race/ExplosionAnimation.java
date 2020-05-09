@@ -3,7 +3,6 @@ package race;
 import race.level.Mine;
 
 public class ExplosionAnimation extends Animation {
-
     private Mine source;
     private long clock;
 
@@ -14,17 +13,18 @@ public class ExplosionAnimation extends Animation {
 
     @Override
     public boolean isDone() {
-        return clock > 320;
+        return clock > 1408000;
     }
 
     @Override
     public void render(Renderer renderer) {
-        long frame = clock / 5;
+        long frame = (clock / 22000) & 63;
+
         renderer.renderImage(Assets.EFFECTS, 100 * frame, 0, 100, 100, source.getX() - 1.56, source.getY() - 3.13);
     }
 
     @Override
-    public void update() {
-        clock += 1;
+    public void update(long t) {
+        clock += t;
     }
 }

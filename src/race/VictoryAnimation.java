@@ -16,7 +16,7 @@ public class VictoryAnimation extends Animation {
 
     @Override
     public boolean isDone() {
-        return clock > 720;
+        return clock > 3000000;
     }
 
     @Override
@@ -26,22 +26,22 @@ public class VictoryAnimation extends Animation {
 
     @Override
     public void render(Renderer renderer) {
-        if (clock < 120) {
+        if (clock < 750000) {
             game.renderGame(renderer);
-            renderFadeToBlack(renderer, clock / 120.0);
-        } else if (clock < 180) {
+            renderFadeToBlack(renderer, clock / 750000.0);
+        } else if (clock < 1000000) {
             /* nothing */
-        } else if (clock < 600) {
-            renderWinner(renderer, (clock - 180) / 360.0);
+        } else if (clock < 2500000) {
+            renderWinner(renderer, (clock - 1000000) / 1500000.0);
         } else {
             renderWinner(renderer, 1.0);
-            renderFadeToBlack(renderer, (clock - 600) / 120.0);
+            renderFadeToBlack(renderer, (clock - 2500000) / 500000.0);
         }
     }
 
     @Override
-    public void update() {
-        clock += 1;
+    public void update(long t) {
+        clock += t;
     }
 
     private void renderWinner(Renderer renderer, double completion) {

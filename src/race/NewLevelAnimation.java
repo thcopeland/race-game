@@ -15,12 +15,12 @@ public class NewLevelAnimation extends Animation {
     public NewLevelAnimation(Level level, int levelNumber) {
         this.level = level;
         this.levelNumber = levelNumber;
-        clock = System.currentTimeMillis();
+        clock = 0;
     }
 
     @Override
     public boolean isDone() {
-        return System.currentTimeMillis() - clock > 3000;
+        return clock > 3000000;
     }
 
     @Override
@@ -28,18 +28,16 @@ public class NewLevelAnimation extends Animation {
         GraphicsContext ctx = renderer.getContext();
         ctx.setFill(Color.BLACK);
 
-        long time = System.currentTimeMillis() - clock;
-
-        if (time < 400) {
+        if (clock < 500000) {
             ctx.fillRect(0, 0, renderer.getViewportWidth(), renderer.getViewportHeight());
             ctx.setFill(Color.WHITE);
 
             ctx.save();
             ctx.setTextAlign(TextAlignment.CENTER);
-            ctx.setFont(Font.font(time / 2));
+            ctx.setFont(Font.font(clock / 2500));
             ctx.fillText("Level " + levelNumber, renderer.getViewportWidth() / 2, renderer.getViewportHeight() / 2);
             ctx.restore();
-        } else if (time > 1500) {
+        } else if (clock > 1500000) {
             level.getMap().render(renderer);
 
             for (Obstacle o : level.getObstacles()) {
@@ -47,7 +45,7 @@ public class NewLevelAnimation extends Animation {
             }
 
             ctx.setFill(Color.BLACK);
-            ctx.setGlobalAlpha(1 - (time - 1500) / 1500.0);
+            ctx.setGlobalAlpha(1 - (clock - 1500000) / 1500000.0);
             ctx.fillRect(0, 0, renderer.getViewportWidth(), renderer.getViewportHeight());
             ctx.setGlobalAlpha(1.0);
         }
@@ -55,7 +53,7 @@ public class NewLevelAnimation extends Animation {
     }
 
     @Override
-    public void update() {
-        clock++;
+    public void update(long t) {
+        clock += t;
     }
 }

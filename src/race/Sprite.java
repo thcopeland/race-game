@@ -3,17 +3,11 @@ package race;
 import javafx.scene.canvas.GraphicsContext;
 
 public class Sprite {
-    public static final int EXPECTED_TICKS_PER_SEC = 60;
-    public static final int ANIMATION_FPS = 3;
-    public static final int FRAME_DURATION = EXPECTED_TICKS_PER_SEC / ANIMATION_FPS;
-
     private int width, height, offsetX, offsetY;
     private int[][][] animations;
     private long clock;
 
     /**
-     * Create a sprite. These are currently used only for
-     *
      * @param width      sprite width
      * @param height     sprite height
      * @param offsetX    the x-offset of the sprite on the source image. Keeping
@@ -47,12 +41,12 @@ public class Sprite {
         return offsetY * height;
     }
 
-    public void tick() {
-        clock++;
+    public void tick(long t) {
+        clock += t;
     }
 
     public void render(Renderer renderer, double x, double y, int animation) {
-        int frame = (int) (clock / FRAME_DURATION % animations[animation].length);
+        int frame = (int) (clock / 75000 % animations[animation].length);
         int[] animationCoords = animations[animation][frame];
 
         renderer.renderImage(Assets.SPRITES, (offsetX + animationCoords[0]) * width,

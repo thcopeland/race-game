@@ -30,7 +30,7 @@ public class Mine extends Obstacle {
     }
 
     @Override
-    public void update(Player... players) {
+    public void update(long t, Player... players) {
         if (!expended) {
             double proximity = -1;
 
@@ -47,7 +47,7 @@ public class Mine extends Obstacle {
 
             transparency = calculateTransparency(proximity);
         } else if (!explosion.isDone()) {
-            explosion.update();
+            explosion.update(t);
         }
     }
 

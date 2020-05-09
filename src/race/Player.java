@@ -86,6 +86,10 @@ public class Player {
         this.y = y;
     }
 
+    public void setZ(double z) {
+        this.z = z;
+    }
+
     public void setVx(double vx) {
         this.vx = vx;
     }
@@ -159,9 +163,9 @@ public class Player {
 
             handleGroundCollision();
 
-            sprite.tick();
+            sprite.tick(t);
         } else {
-            animations.update();
+            animations.update(t);
         }
     }
 
@@ -175,7 +179,7 @@ public class Player {
 
     public void respawn(GameLocation s) {
         spawnPoint = s;
-        vx = vy = 0;
+        vx = vy = vz = z = 0;
         facing = Direction.DOWN;
         animations.add(new SpawnAnimation(s, this));
     }
@@ -200,7 +204,7 @@ public class Player {
     }
 
     public int getAnimationIndex() {
-        if (getSpeed() < 0.0000001)
+        if (getSpeed() < 0.00000012)
             return facing.ordinal();
         return facing.ordinal() + 4;
     }

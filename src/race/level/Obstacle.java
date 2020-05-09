@@ -16,7 +16,7 @@ public abstract class Obstacle {
 
     public abstract void render(Renderer renderer);
 
-    public void update(Player... players) {
+    public void update(long t, Player... players) {
         for (Player p : players) {
             double dist2 = Math.pow(p.getX() - x, 2) + Math.pow(p.getY() - y, 2);
 

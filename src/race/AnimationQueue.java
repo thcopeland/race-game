@@ -9,8 +9,8 @@ public class AnimationQueue {
         animations = new ArrayDeque<Animation>();
     }
 
-    public void update() {
-        current().update();
+    public void update(long t) {
+        current().update(t);
 
         if (current().isDone())
             animations.pop().onCompletion();

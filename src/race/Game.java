@@ -67,11 +67,11 @@ public class Game {
             player2.update(t, levels.getLevel());
 
             for (Obstacle o : levels.getLevel().getObstacles())
-                o.update(player1, player2);
+                o.update(t, player1, player2);
 
             checkForWinner();
         } else {
-            animations.update();
+            animations.update(t);
         }
     }
 
