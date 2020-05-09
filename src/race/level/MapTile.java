@@ -213,7 +213,26 @@ public enum MapTile implements Tiled {
     DIRT_HOLE_OUT_SE(32, 4, TerrainLayout.OUT_SE, TerrainLayout.HOLE_DIRT),
     DIRT_HOLE_1(30, 5, TerrainLayout.FLAT, TerrainLayout.HOLE),
     DIRT_HOLE_2(31, 5, TerrainLayout.FLAT, TerrainLayout.HOLE),
-    DIRT_HOLE_3(32, 5, TerrainLayout.FLAT, TerrainLayout.HOLE);
+    DIRT_HOLE_3(32, 5, TerrainLayout.FLAT, TerrainLayout.HOLE),
+
+    SNOW_EXTRA_1(33, 0, TerrainLayout.FLAT, TerrainLayout.SNOW),
+    SNOW_IN_NW(34, 0, TerrainLayout.IN_NW, TerrainLayout.ICE_SNOW),
+    SNOW_IN_NE(35, 0, TerrainLayout.IN_NE, TerrainLayout.ICE_SNOW),
+    SNOW_EXTRA_2(33, 1, TerrainLayout.FLAT, TerrainLayout.ICE),
+    SNOW_IN_SW(34, 1, TerrainLayout.IN_SW, TerrainLayout.ICE_SNOW),
+    SNOW_IN_SE(35, 1, TerrainLayout.IN_SE, TerrainLayout.ICE_SNOW),
+    SNOW_OUT_NW(33, 2, TerrainLayout.OUT_NW, TerrainLayout.ICE_SNOW),
+    SNOW_OUT_N(34, 2, TerrainLayout.OUT_N, TerrainLayout.ICE_SNOW),
+    SNOW_OUT_NE(35, 2, TerrainLayout.OUT_NE, TerrainLayout.ICE_SNOW),
+    SNOW_OUT_W(33, 3, TerrainLayout.OUT_W, TerrainLayout.ICE_SNOW),
+    SNOW_OUT(34, 3, TerrainLayout.FLAT, TerrainLayout.ICE),
+    SNOW_OUT_E(35, 3, TerrainLayout.OUT_E, TerrainLayout.ICE_SNOW),
+    SNOW_OUT_SW(33, 4, TerrainLayout.OUT_SW, TerrainLayout.ICE_SNOW),
+    SNOW_OUT_S(34, 4, TerrainLayout.OUT_S, TerrainLayout.ICE_SNOW),
+    SNOW_OUT_SE(35, 4, TerrainLayout.OUT_SE, TerrainLayout.ICE_SNOW),
+    SNOW_1(33, 5, TerrainLayout.FLAT, TerrainLayout.ICE),
+    SNOW_2(34, 5, TerrainLayout.FLAT, TerrainLayout.ICE),
+    SNOW_3(35, 5, TerrainLayout.FLAT, TerrainLayout.ICE);
 
     public static MapTile DEFAULT = GRASS_OUT;
 
@@ -222,26 +241,75 @@ public enum MapTile implements Tiled {
      * class to hold the various layouts.
      */
     private static class TerrainLayout {
-        public static final Terrain[] GRASS = { Terrain.GRASS }, WATER = { Terrain.WATER }, DIRT = { Terrain.DIRT },
-                ROCK = { Terrain.ROCK }, LAVA = { Terrain.LAVA }, HOLE = { Terrain.HOLE },
-                BRACKISH = { Terrain.BRACKISH };
+        public static final Terrain[] GRASS    = { Terrain.GRASS },
+                                      WATER    = { Terrain.WATER },
+                                      DIRT     = { Terrain.DIRT },
+                                      ROCK     = { Terrain.ROCK },
+                                      LAVA     = { Terrain.LAVA },
+                                      HOLE     = { Terrain.HOLE },
+                                      BRACKISH = { Terrain.BRACKISH },
+                                      SNOW     = { Terrain.SNOW },
+                                      ICE      = { Terrain.ICE };
 
-        public static final Terrain[] GRASS_DIRT = { Terrain.GRASS, Terrain.DIRT },
-                WATER_GRASS = { Terrain.WATER, Terrain.GRASS }, WATER_DIRT = { Terrain.WATER, Terrain.DIRT },
-                ROCK_LAVA = { Terrain.ROCK, Terrain.LAVA }, LAVA_ROCK = { Terrain.LAVA, Terrain.ROCK },
-                DIRT_ROCK = { Terrain.DIRT, Terrain.ROCK }, HOLE_ROCK = { Terrain.HOLE, Terrain.ROCK },
-                HOLE_DIRT = { Terrain.HOLE, Terrain.DIRT }, HOLE_GRASS = { Terrain.HOLE, Terrain.GRASS },
-                BRACKISH_GRASS = { Terrain.BRACKISH, Terrain.GRASS };
+        public static final Terrain[] GRASS_DIRT     = { Terrain.GRASS, Terrain.DIRT },
+                                      WATER_GRASS    = { Terrain.WATER, Terrain.GRASS },
+                                      WATER_DIRT     = { Terrain.WATER, Terrain.DIRT },
+                                      ROCK_LAVA      = { Terrain.ROCK, Terrain.LAVA },
+                                      LAVA_ROCK      = { Terrain.LAVA, Terrain.ROCK },
+                                      DIRT_ROCK      = { Terrain.DIRT, Terrain.ROCK },
+                                      HOLE_ROCK      = { Terrain.HOLE, Terrain.ROCK },
+                                      HOLE_DIRT      = { Terrain.HOLE, Terrain.DIRT },
+                                      HOLE_GRASS     = { Terrain.HOLE, Terrain.GRASS },
+                                      BRACKISH_GRASS = { Terrain.BRACKISH, Terrain.GRASS },
+                                      ICE_SNOW       = { Terrain.ICE, Terrain.SNOW };
 
-        public static final int[][] FLAT = { { 0 } },
-                IN_NW = { { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 1 }, { 0, 0, 1, 1 } },
-                IN_NE = { { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 1, 0, 0, 0 }, { 1, 1, 0, 0 } },
-                IN_SW = { { 0, 0, 1, 1 }, { 0, 0, 0, 1 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 } },
-                IN_SE = { { 1, 1, 0, 0 }, { 1, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 } },
-                OUT_NW = { { 1, 1, 1, 1 }, { 1, 1, 1, 1 }, { 1, 1, 1, 0 }, { 1, 1, 0, 0 } }, OUT_N = { { 1 }, { 0 } },
-                OUT_NE = { { 1, 1, 1, 1 }, { 1, 1, 1, 1 }, { 0, 1, 1, 1 }, { 0, 0, 1, 1 } }, OUT_E = { { 0, 1 } },
-                OUT_W = { { 1, 0 } }, OUT_SW = { { 1, 1, 0, 0 }, { 1, 1, 1, 0 }, { 1, 1, 1, 1 }, { 1, 1, 1, 1 } },
-                OUT_S = { { 0 }, { 1 } }, OUT_SE = { { 0, 0, 1, 1 }, { 0, 1, 1, 1 }, { 1, 1, 1, 1 }, { 1, 1, 1, 1 } };
+        public static final int[][] FLAT   = { { 0 } },
+                                    IN_NW  = { { 0, 0, 0, 0 },
+                                               { 0, 0, 0, 0 },
+                                               { 0, 0, 0, 1 },
+                                               { 0, 0, 1, 1 } },
+
+                                    IN_NE  = { { 0, 0, 0, 0 },
+                                               { 0, 0, 0, 0 },
+                                               { 1, 0, 0, 0 },
+                                               { 1, 1, 0, 0 } },
+
+                                    IN_SW  = { { 0, 0, 1, 1 },
+                                               { 0, 0, 0, 1 },
+                                               { 0, 0, 0, 0 },
+                                               { 0, 0, 0, 0 } },
+
+                                    IN_SE  = { { 1, 1, 0, 0 },
+                                               { 1, 0, 0, 0 },
+                                               { 0, 0, 0, 0 },
+                                               { 0, 0, 0, 0 } },
+
+                                    OUT_NW = { { 1, 1, 1, 1 },
+                                               { 1, 1, 1, 1 },
+                                               { 1, 1, 1, 0 },
+                                               { 1, 1, 0, 0 } },
+
+                                    OUT_N  = { { 1 }, { 0 } },
+
+                                    OUT_NE = { { 1, 1, 1, 1 },
+                                               { 1, 1, 1, 1 },
+                                               { 0, 1, 1, 1 },
+                                               { 0, 0, 1, 1 } },
+
+                                    OUT_E  = { { 0, 1 } },
+                                    OUT_W  = { { 1, 0 } },
+
+                                    OUT_SW = { { 1, 1, 0, 0 },
+                                               { 1, 1, 1, 0 },
+                                               { 1, 1, 1, 1 },
+                                               { 1, 1, 1, 1 } },
+
+                                    OUT_S  = { { 0 }, { 1 } },
+
+                                    OUT_SE = { { 0, 0, 1, 1 },
+                                               { 0, 1, 1, 1 },
+                                               { 1, 1, 1, 1 },
+                                               { 1, 1, 1, 1 } };
     }
 
     public static String serialize(MapTile value) {
