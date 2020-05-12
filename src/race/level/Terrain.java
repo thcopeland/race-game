@@ -9,7 +9,7 @@ public enum Terrain {
     BRACKISH (0.95, 0.0000012, -0.31),
     HOLE     (0.95, 0.0000100, 0),
     SNOW     (0.8,  0.0000030, 0),
-    ICE      (0.99, 0.0000120, -0.31);
+    ICE      (0.995, 0.0000120, -0.31);
 
     private double friction;
     private double speed;

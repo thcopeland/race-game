@@ -37,7 +37,7 @@ public class Mine extends Obstacle {
             for (Player p : players) {
                 double dist2 = Math.pow(p.getX() - x, 2) + Math.pow(p.getY() - y, 2);
 
-                if (dist2 < 0.05 && p.getZ() < 0.2) {
+                if (dist2 < 0.1 && p.getZ() < 0.2) {
                     expended = true;
                     p.respawn(p.getSpawnPoint());
                 }
