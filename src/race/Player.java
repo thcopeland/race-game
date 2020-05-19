@@ -184,6 +184,7 @@ public class Player {
         GraphicsContext ctx = renderer.getContext();
         ctx.setGlobalAlpha(0.2);
         ctx.setFill(Color.BLACK);
+
         int width = 50*renderer.getScaleX()/sprite.getWidth(),
             height = 30*renderer.getScaleY()/sprite.getHeight();
 
