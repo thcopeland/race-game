@@ -1,5 +1,7 @@
 package race;
 
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 import race.level.GameLocation;
 import race.level.Level;
 import race.level.Terrain;
@@ -171,10 +173,22 @@ public class Player {
 
     public void render(Renderer renderer) {
         if (animations.isEmpty()) {
+            renderShadow(renderer);
             sprite.render(renderer, getX() - 0.75, getY() - 1.88 - getZ() * 2 / 3, getAnimationIndex());
         } else {
             animations.render(renderer);
         }
+    }
+
+    public void renderShadow(Renderer renderer) {
+        GraphicsContext ctx = renderer.getContext();
+        ctx.setGlobalAlpha(0.2);
+        ctx.setFill(Color.BLACK);
+        int width = 50*renderer.getScaleX()/sprite.getWidth(),
+            height = 30*renderer.getScaleY()/sprite.getHeight();
+
+        ctx.fillOval(getX()*renderer.getScaleX()-width/2, getY()*renderer.getScaleY()-height/2, width, height);
+        ctx.setGlobalAlpha(1.0);
     }
 
     public void respawn(GameLocation s) {
